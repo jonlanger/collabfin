@@ -217,7 +217,7 @@ button { cursor: pointer; }
 .count.ok { background: var(--gain-soft); color: var(--gain); }
 .summary { display: flex; align-items: flex-end; gap: 20px; padding: 10px 14px 12px 18px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-sm); }
 .sum-item { display: flex; flex-direction: column; gap: 4px; }
-.sum-item .eyebrow { display: inline-flex; align-items: center; gap: 2px; }
+.sum-item .eyebrow { display: inline-flex; align-items: center; gap: 2px; white-space: nowrap; }
 .sum-fig { font: 700 20px/1 var(--font-display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .sum-item.net .sum-fig { font-size: 34px; letter-spacing: -.03em; font-variation-settings: 'opsz' 72; }
 
@@ -229,7 +229,6 @@ button { cursor: pointer; }
 .tool .pal { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; }
 .tool.upload { background: var(--brand); color: var(--on-brand); box-shadow: var(--shadow-cta); }
 .tool.upload:hover { background: var(--brand-hover); }
-.rail .tool[data-tip]:hover::after { content: attr(data-tip); position: absolute; left: 54px; top: 50%; transform: translateY(-50%); padding: 6px 10px; border-radius: 8px; background: var(--ink); color: var(--surface); font: 600 13px/16px var(--font-sans); white-space: nowrap; pointer-events: none; }
 .zoombar { position: fixed; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: flex; align-items: center; gap: 2px; padding: 4px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-lg); }
 .zoombar .tool { width: 40px; height: 40px; border-radius: 10px; }
 .zoom-pct { min-width: 56px; height: 40px; border: 0; border-radius: 10px; background: transparent; font: 500 14px/20px var(--font-mono); color: var(--ink); }
@@ -491,6 +490,268 @@ input[type="month"].select { padding: 0 8px; font-family: var(--font-mono); }
 .key-row dt { margin: 0; } .key-row dd { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--ink-muted); }
 kbd { display: inline-block; padding: 2px 7px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; background: var(--surface); color: var(--ink); font: 500 12px/16px var(--font-mono); white-space: nowrap; }
 .seg.set-control { width: 200px; gap: 4px; }
+
+/* collaborator colours (from the design system tokens) */
+:root { --presence-1: #1a4fe6; --presence-2: #a84f1c; --presence-3: #c2338f; --presence-4: #0b7a7a; --on-presence: #ffffff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --presence-1: #8aa8ff; --presence-2: #f5c46a; --presence-3: #f07cc4; --presence-4: #3fd0d0; --on-presence: #0a0f1f; } }
+:root[data-theme="dark"] { --presence-1: #8aa8ff; --presence-2: #f5c46a; --presence-3: #f07cc4; --presence-4: #3fd0d0; --on-presence: #0a0f1f; }
+
+/* ---------- v7: tooltips on top, simpler top bar, rail labels, boards drawer ---------- */
+.ftip { position: fixed; z-index: 1000; max-width: min(280px, calc(100vw - 16px)); padding: 7px 10px; border-radius: 8px; background: var(--ink); color: var(--surface); box-shadow: var(--shadow-lg); font: 600 13px/18px var(--font-sans); pointer-events: none; white-space: normal; }
+.ftip.rich { width: 280px; padding: 12px 14px; border-radius: 12px; font-weight: 400; line-height: 19px; pointer-events: auto; user-select: text; -webkit-user-select: text; }
+.ftip.rich b { display: block; margin-bottom: 2px; font-weight: 700; }
+.ftip.rich p { margin: 0; }
+.ftip.rich p + b { margin-top: 10px; }
+.sel-pop { z-index: 900; }
+.icon-btn2 { display: grid; place-items: center; flex: none; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--ink); }
+.icon-btn2:hover { background: var(--surface-sunken); }
+.board { gap: 8px; padding: 4px 10px 4px 4px; }
+button.wordmark { height: 40px; padding: 0 6px; border: 0; border-radius: 10px; background: transparent; cursor: pointer; }
+button.wordmark:hover { background: var(--brand-soft); }
+.status { width: 24px; height: 24px; justify-content: center; border-radius: 999px; }
+.status:focus-visible { box-shadow: var(--focus-ring); }
+.top .spacer { flex: 1; }
+.summary { margin-left: 0; }
+.board-root { display: contents; }
+
+.rail { top: calc(84px + env(safe-area-inset-top, 0px)); transform: none; max-height: calc(100vh - 84px - 80px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; transition: width .18s ease; }
+.rail .tool .lbl, .rail .rail-h { display: none; }
+.rail.open { width: 232px; box-sizing: border-box; }
+.rail.open .tool { display: flex; align-items: center; justify-content: flex-start; gap: 12px; width: 100%; min-height: 44px; padding: 0 10px; }
+.rail.open .tool > .ico { flex: none; }
+.rail.open .tool .lbl { display: inline; font: 600 14px/20px var(--font-sans); color: var(--ink); white-space: nowrap; }
+.rail.open .tool kbd.lbl { margin-left: auto; font: 500 11px/14px var(--font-mono); padding: 1px 6px; }
+.rail.open .tool.upload .lbl { color: var(--on-brand); }
+.rail.open .tool .pal { width: 28px; height: 28px; flex: none; }
+.rail.open .rail-h { display: block; padding: 6px 10px 2px; font: 600 11px/14px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.rail.open .rail-toggle .lbl { color: var(--ink-muted); }
+.rail .tool.on .lbl { color: var(--brand-ink); }
+@media (min-width: 720px) { .rail-open-top .top { left: 256px; } }
+
+.scrim.drawer-scrim, .drawer + .scrim { z-index: 299; }
+.drawer { position: fixed; left: 0; top: 0; bottom: 0; z-index: 300; display: flex; flex-direction: column; width: min(380px, 100vw); background: var(--surface-raised); border-right: 1px solid var(--line); box-shadow: var(--shadow-lg); padding-top: env(safe-area-inset-top, 0px); animation: drawer-in .2s ease-out; }
+@keyframes drawer-in { from { transform: translateX(-24px); opacity: .6; } }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 12px 8px 20px; }
+.drawer-head h2 { margin: 0; font: 750 30px/1 var(--font-display); letter-spacing: -.025em; }
+.drawer-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 8px 16px calc(24px + env(safe-area-inset-bottom, 0px)); }
+.cta.block { width: 100%; }
+.new-board { display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.new-board .row-btns { display: flex; gap: 6px; margin-top: 4px; }
+.board-list { display: flex; flex-direction: column; gap: 6px; }
+.board-item { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+.board-item.on { border-color: var(--brand-ink); background: var(--surface-raised); }
+.board-row { display: flex; align-items: center; gap: 4px; padding-right: 8px; }
+.board-open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; padding: 12px; border: 0; background: transparent; color: var(--ink); text-align: left; border-radius: var(--r-md); }
+.board-open:hover { background: var(--surface-sunken); }
+.b-ico { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--brand-soft); color: var(--brand-ink); }
+.b-text { min-width: 0; display: flex; flex-direction: column; }
+.b-text b { font: 650 16px/20px var(--font-sans); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b-text small { font: 400 12px/16px var(--font-sans); color: var(--ink-muted); }
+.board-item .confirm { margin: 0 12px 12px; }
+.plans { display: flex; flex-direction: column; gap: 2px; padding: 0 8px 10px 56px; }
+.plans .eyebrow { padding: 4px 8px; }
+.plan-item { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 40px; padding: 0 8px; border: 0; border-radius: 10px; background: transparent; color: var(--ink); font: 500 15px/20px var(--font-sans); text-align: left; }
+.plan-item:hover { background: var(--surface-sunken); }
+.plan-item.on { font-weight: 650; color: var(--brand-ink); }
+.plan-item .ck { display: grid; place-items: center; width: 20px; flex: none; color: var(--brand-ink); }
+.plan-item.muted-item { color: var(--ink-muted); }
+.drawer-links { display: flex; flex-direction: column; gap: 2px; padding-top: 12px; border-top: 1px solid var(--line); }
+.drawer-links .ck { color: var(--ink-muted); }
+.seg.set-control { display: flex; }
+@media (max-width: 719px) { .board { padding-right: 8px; } .board .wordmark { display: inline-block; } }
+@media (max-width: 460px) { button.wordmark { display: none !important; } }
+
+/* ---------- Home ---------- */
+.home { position: fixed; inset: 0; z-index: 200; overflow-y: auto; overflow-x: hidden; background: var(--surface); color: var(--ink); scroll-behavior: smooth; }
+.home .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; box-sizing: border-box; }
+@media (min-width: 720px) { .home .wrap { padding-inline: 32px; } }
+.home-nav { position: sticky; top: 0; z-index: 5; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); border-bottom: 1px solid transparent; transition: border-color .2s ease; }
+.home-nav.scrolled { border-bottom-color: var(--line); }
+.nav-in { display: flex; align-items: center; gap: 8px; height: 68px; }
+.home-logo { font: 800 22px/1 var(--font-display); letter-spacing: -.03em; color: var(--brand-ink); }
+.home-links { display: none; gap: 4px; margin-left: 24px; }
+.home-links a { padding: 10px 12px; border-radius: 10px; color: var(--ink-muted); font: 600 15px/20px var(--font-sans); text-decoration: none; }
+.home-links a:hover { background: var(--surface-sunken); color: var(--ink); }
+@media (min-width: 820px) { .home-links { display: flex; } }
+.nav-in .cta.sm { margin-left: auto; height: 44px; padding: 0 16px; font-size: 15px; border-radius: 14px; max-width: 60vw; overflow: hidden; text-overflow: ellipsis; }
+.cta.lg { height: 60px; padding: 0 28px; font-size: 18px; border-radius: 20px; }
+.cta .ico { margin-left: 2px; }
+
+.home-hero { display: grid; gap: 40px; padding-block: 40px 72px; align-items: center; }
+@media (min-width: 980px) { .home-hero { grid-template-columns: 5fr 6fr; gap: 48px; padding-block: 72px 112px; } }
+.home-hero .hero-text .eyebrow { color: var(--brand-ink); }
+.home-hero h1 { margin: 16px 0 20px; font: 780 clamp(52px, 8.6vw, 104px)/.9 var(--font-display); letter-spacing: -.045em; font-variation-settings: 'opsz' 96; text-wrap: balance; }
+.home-hero p { margin: 0 0 28px; max-width: 34ch; font: 400 clamp(18px, 2vw, 21px)/1.5 var(--font-sans); color: var(--ink-muted); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.proof { display: flex; flex-direction: column; gap: 8px; margin: 28px 0 0; padding: 0; list-style: none; }
+.proof li { display: flex; align-items: center; gap: 8px; font: 500 14px/20px var(--font-sans); color: var(--ink-muted); }
+.proof .ico { color: var(--gain); }
+
+.illo { position: relative; border: 1px solid var(--line); border-radius: 28px; background-color: var(--canvas); background-image: radial-gradient(circle, var(--grid-dot) 1.2px, transparent 1.5px); background-size: 22px 22px; overflow: hidden; }
+.illo svg { display: block; width: 100%; height: auto; }
+.illo.pad { display: grid; place-items: center; padding: 28px 20px; min-height: 280px; }
+.hero-illo { box-shadow: var(--shadow-lg); }
+
+/* shared svg vocabulary */
+.card-r { fill: var(--surface-raised); stroke: var(--line); stroke-width: 1.5; filter: drop-shadow(0 6px 12px rgba(11, 20, 48, .08)); }
+.card-r.strong { stroke: var(--brand-ink); stroke-width: 2; }
+.card-r.peer { stroke: var(--presence-3); stroke-width: 2; stroke-dasharray: 6 5; }
+.card-r.peer2 { stroke: var(--presence-2); stroke-width: 2; stroke-dasharray: 6 5; }
+.row-r { fill: var(--surface-sunken); }
+.w-gain { fill: var(--gain-soft); } .w-loss { fill: var(--loss-soft); } .w-brand { fill: var(--brand-soft); } .w-acc { fill: var(--accent-soft); }
+.p1f { fill: var(--presence-1); } .p2f { fill: var(--presence-2); } .p3f { fill: var(--presence-3); }
+.pill-gain { fill: var(--gain-soft); }
+.tag-r, .hist-r { fill: var(--surface-raised); stroke: var(--line); }
+.t-eye { font: 600 10px/1 var(--font-sans); letter-spacing: .08em; fill: var(--ink-muted); }
+.t-title { font: 650 14px/1 var(--font-display); fill: var(--ink); }
+.t-big { font: 750 22px/1 var(--font-display); letter-spacing: -.02em; fill: var(--ink); }
+.t-hero { font: 780 40px/1 var(--font-display); letter-spacing: -.035em; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.t-hero.s { font-size: 32px; }
+.t-small { font: 500 11px/1 var(--font-sans); fill: var(--ink-muted); }
+.t-pill { font: 600 11px/1 var(--font-mono); }
+.t-tag, .t-tagc { font: 600 11px/1 var(--font-sans); fill: var(--on-presence); }
+.t-tagc { text-anchor: middle; }
+.t-tagc.pos, .t-tagc.neg { font-family: var(--font-mono); }
+.t-av { font: 700 11px/1 var(--font-sans); fill: var(--on-presence); text-anchor: middle; }
+.end { text-anchor: end; }
+svg .pos { fill: var(--gain); } svg .neg { fill: var(--loss); } svg .on { fill: var(--on-presence); }
+.lk { fill: none; stroke: var(--line-strong); stroke-width: 2.5; }
+.lk-flow { fill: none; stroke: var(--brand-ink); stroke-width: 2.5; stroke-dasharray: 3 11; stroke-linecap: round; animation: flow-dash 1.1s linear infinite; }
+@keyframes flow-dash { to { stroke-dashoffset: -28; } }
+.coin { fill: var(--gain); stroke: var(--surface-raised); stroke-width: 2; }
+.coin.out { fill: var(--loss); }
+.cur-a { stroke: var(--surface-raised); stroke-width: 1.5; }
+
+/* hero: one orchestrated entrance, then gentle ambient motion */
+.hero-svg .hc { animation: pop-in .6s cubic-bezier(.2, .9, .3, 1.2) both; transform-box: fill-box; transform-origin: center; }
+.hero-svg .hc2 { animation-delay: .12s; } .hero-svg .hc3 { animation-delay: .3s; } .hero-svg .hc4 { animation-delay: .45s; }
+.hero-svg .lk { stroke-dasharray: 400; animation: draw 1s .5s ease-out both; }
+.hero-svg .lk2 { animation-delay: .65s; } .hero-svg .lk3 { animation-delay: .8s; }
+.hero-svg .tag-g { animation: fade-in .5s 1.1s both; }
+@keyframes pop-in { from { opacity: 0; transform: translateY(10px) scale(.96); } }
+@keyframes draw { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+@keyframes fade-in { from { opacity: 0; } }
+.cur { animation-duration: 9s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+.cur1 { animation-name: cur1; transform: translate(150px, 190px); }
+.cur2 { animation-name: cur2; transform: translate(118px, 330px); }
+@keyframes cur1 { 0%, 100% { transform: translate(150px, 190px); } 30% { transform: translate(470px, 250px); } 55% { transform: translate(470px, 250px); } 80% { transform: translate(520px, 390px); } }
+@keyframes cur2 { 0%, 100% { transform: translate(118px, 330px); } 40% { transform: translate(180px, 312px); } 70% { transform: translate(96px, 300px); } }
+.hero-svg .peer { animation: peer-pulse 2.4s ease-in-out infinite; }
+@keyframes peer-pulse { 50% { stroke-opacity: .35; } }
+
+/* feature illustrations: play once when scrolled into view (resting state is the finished picture) */
+.play .pop { animation: pop-in .5s cubic-bezier(.2, .9, .3, 1.2) both; transform-box: fill-box; transform-origin: center; }
+.play .pop2 { animation-delay: .1s; } .play .pop3 { animation-delay: .3s; }
+.tax-card { width: 100%; max-width: 420px; padding: 20px; border-radius: 20px; background: var(--surface-raised); border: 1px solid var(--line); box-shadow: var(--shadow-md); }
+.tx-hero { margin: 6px 0 16px; font: 780 44px/1 var(--font-display); letter-spacing: -.035em; font-variant-numeric: tabular-nums; }
+.tbar { display: flex; height: 18px; border-radius: 999px; overflow: hidden; background: var(--surface-sunken); gap: 2px; }
+.tseg { display: block; height: 100%; transform-origin: left center; }
+.play .tseg { animation: grow-x .7s cubic-bezier(.3, .8, .3, 1) both; }
+@keyframes grow-x { from { transform: scaleX(0); } }
+.tb-home { background: var(--gain); } .tb-fed { background: var(--brand); } .tb-pre { background: var(--accent); } .tb-fica { background: var(--presence-3); } .tb-state { background: var(--presence-4); }
+.tlegend { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.tlegend li { display: grid; grid-template-columns: 12px 1fr auto; gap: 10px; align-items: center; font: 500 14px/20px var(--font-sans); color: var(--ink-muted); }
+.tlegend i { width: 12px; height: 12px; border-radius: 4px; }
+.tlegend b { font: 600 14px/20px var(--font-mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+.grid-l { stroke: var(--line); stroke-dasharray: 3 5; }
+.band { fill: var(--brand-soft); opacity: .9; }
+.gline { fill: none; stroke: var(--brand-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.gdot { fill: var(--brand-ink); stroke: var(--surface-raised); stroke-width: 3; }
+.play .gline { stroke-dasharray: 1; animation: draw1 1.4s ease-out both; }
+.play .band { animation: fade-in 1s .6s both; }
+@keyframes draw1 { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.debt { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 20px; background: var(--surface-raised); border: 1px solid var(--line); box-shadow: var(--shadow-md); }
+.drow { display: grid; grid-template-columns: 104px 1fr 82px; gap: 10px; align-items: center; font: 500 14px/20px var(--font-sans); color: var(--ink-muted); }
+.drow b { font: 600 14px/20px var(--font-mono); color: var(--ink); text-align: right; }
+.dtrack { height: 14px; border-radius: 999px; background: var(--surface-sunken); overflow: hidden; }
+.dbar { display: block; height: 100%; border-radius: inherit; transform-origin: left center; }
+.dbar.slow { background: var(--loss); } .dbar.fast { background: var(--gain); }
+.play .dbar { animation: grow-x 1.1s cubic-bezier(.3, .8, .3, 1) both; } .play .dbar.fast { animation-delay: .25s; }
+.dsave { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--gain-soft); color: var(--gain); font: 500 15px/20px var(--font-sans); }
+.dsave b { font-family: var(--font-mono); }
+.chk-list { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 10px; }
+.chk-row { display: grid; grid-template-columns: 28px 1fr; gap: 10px; padding: 12px; border-radius: 14px; background: var(--surface-raised); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.chk-row p { margin: 3px 0 0; font: 500 14px/20px var(--font-sans); }
+.chk-fix { display: flex; align-items: center; gap: 10px; }
+.play .chk-row, .play .chk-fix { animation: slide-in .5s cubic-bezier(.2, .9, .3, 1) both; }
+@keyframes slide-in { from { opacity: 0; transform: translateX(-16px); } }
+.imp { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; }
+.csv { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.csv code { display: block; padding: 6px 8px; border-radius: 8px; background: var(--surface-raised); border: 1px solid var(--line); font: 500 11px/16px var(--font-mono); color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.imp-arrow { color: var(--brand-ink); }
+.chips-col { display: flex; flex-direction: column; gap: 10px; }
+.ichip { display: grid; grid-template-columns: 30px 1fr; grid-template-rows: auto auto; column-gap: 8px; padding: 10px; border-radius: 14px; background: var(--surface-raised); border: 1px solid var(--line); box-shadow: var(--shadow-sm); font: 600 14px/18px var(--font-sans); }
+.ichip .pal { grid-row: span 2; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; }
+.ichip b { font: 500 12px/16px var(--font-mono); color: var(--ink-muted); }
+.play .csv code { animation: slide-out-r .5s ease-out both; }
+.play .ichip { animation: pop-in .5s cubic-bezier(.2, .9, .3, 1.2) both; }
+@keyframes slide-out-r { from { opacity: 0; transform: translateX(-12px); } }
+@media (max-width: 520px) { .imp { grid-template-columns: 1fr; } .imp-arrow { transform: rotate(90deg); justify-self: center; } }
+.scn { width: 100%; max-width: 460px; border-radius: 20px; background: var(--surface-raised); border: 1px solid var(--line); box-shadow: var(--shadow-md); overflow: hidden; }
+.scn-head, .scn-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px; align-items: center; padding: 12px 16px; }
+.scn-head { background: var(--surface); border-bottom: 1px solid var(--line); font: 700 14px/18px var(--font-display); }
+.scn-row + .scn-row { border-top: 1px solid var(--line); }
+.scn-row span { font: 500 13px/18px var(--font-sans); color: var(--ink-muted); }
+.scn-row em { font: 600 14px/18px var(--font-mono); font-style: normal; text-align: right; }
+.scn-head b { text-align: right; }
+.scn .alt { color: var(--brand-ink); }
+.play .scn .alt { animation: col-glow 5s ease-in-out 1s infinite; }
+@keyframes col-glow { 0%, 100% { background: transparent; } 20%, 60% { background: var(--brand-soft); } }
+.collab .c-a { animation: ca 8s ease-in-out infinite; transform: translate(120px, 150px); }
+.collab .c-b { animation: cb 8s ease-in-out infinite; transform: translate(300px, 200px); }
+@keyframes ca { 0%, 100% { transform: translate(120px, 150px); } 35% { transform: translate(180px, 110px); } 65% { transform: translate(90px, 128px); } }
+@keyframes cb { 0%, 100% { transform: translate(300px, 200px); } 40% { transform: translate(250px, 176px); } 70% { transform: translate(320px, 150px); } }
+.collab .peer2 { animation: peer-pulse 2.4s ease-in-out infinite; }
+.a11y-demo { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 16px; }
+.aa { display: flex; align-items: baseline; gap: 16px; font-family: var(--font-display); font-weight: 750; color: var(--ink); }
+.aa .a1 { font-size: 28px; } .aa .a2 { font-size: 40px; } .aa .a3 { font-size: 56px; color: var(--brand-ink); }
+.toggles { display: flex; flex-direction: column; gap: 8px; }
+.tg { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-radius: 12px; background: var(--surface-raised); border: 1px solid var(--line); font: 500 14px/20px var(--font-sans); }
+.sw { position: relative; width: 40px; height: 24px; border-radius: 999px; background: var(--brand); }
+.sw::after { content: ""; position: absolute; top: 3px; left: 19px; width: 18px; height: 18px; border-radius: 999px; background: var(--surface-raised); }
+.play .sw { animation: sw-bg .4s both; } .play .sw::after { animation: sw-knob .4s both; animation-delay: inherit; }
+@keyframes sw-bg { from { background: var(--line-strong); } }
+@keyframes sw-knob { from { left: 3px; } }
+.cbrow { display: flex; gap: 8px; }
+.delta.gain-b { color: #0b5fa5; background: #e3eefa; } .delta.loss-o { color: #9a4700; background: #fdebdc; }
+
+/* layout */
+.sec-h { margin: 0 0 28px; max-width: 18ch; font: 760 clamp(34px, 5.2vw, 60px)/.98 var(--font-display); letter-spacing: -.035em; text-wrap: balance; }
+.how { padding-block: 24px 64px; }
+.steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+.steps li { display: flex; gap: 16px; padding: 22px; border-radius: 22px; background: var(--surface-raised); border: 1px solid var(--line); }
+.step-n { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 14px; background: var(--brand); color: var(--on-brand); font: 750 22px/1 var(--font-display); }
+.steps h3 { margin: 0 0 6px; font: 700 21px/1.2 var(--font-display); letter-spacing: -.015em; }
+.steps p { margin: 0; font: 400 15px/1.5 var(--font-sans); color: var(--ink-muted); }
+.feat { display: grid; gap: 28px; align-items: center; padding-block: 56px; border-top: 1px solid var(--line); }
+@media (min-width: 900px) { .feat { grid-template-columns: 1fr 1.1fr; gap: 64px; padding-block: 96px; } .feat.flip .feat-text { order: 2; } }
+.feat-text .eyebrow { color: var(--brand-ink); }
+.feat h2 { margin: 12px 0 16px; font: 760 clamp(34px, 4.8vw, 56px)/.98 var(--font-display); letter-spacing: -.035em; text-wrap: balance; }
+.feat-text > p { margin: 0 0 20px; max-width: 46ch; font: 400 18px/1.55 var(--font-sans); color: var(--ink-muted); }
+.example { max-width: 50ch; padding: 16px 18px; border-radius: 18px; background: var(--surface-raised); border: 1px solid var(--line); }
+.example p { margin: 6px 0 0; font: 500 16px/1.5 var(--font-sans); }
+.fine { display: flex; gap: 8px; align-items: flex-start; max-width: 50ch; margin: 14px 0 0; font: 400 13px/1.5 var(--font-sans); color: var(--ink-muted); }
+.caps { padding-block: 72px; border-top: 1px solid var(--line); }
+.cap-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .cap-grid { grid-template-columns: repeat(4, 1fr); } }
+.cap { padding: 20px; border-radius: 20px; background: var(--surface-raised); border: 1px solid var(--line); }
+.cap-ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--brand-soft); color: var(--brand-ink); }
+.cap h3 { margin: 14px 0 6px; font: 700 18px/1.2 var(--font-display); }
+.cap p { margin: 0; font: 400 14px/1.5 var(--font-sans); color: var(--ink-muted); }
+.final { background: var(--brand); color: var(--on-brand); background-image: radial-gradient(circle, rgba(255, 255, 255, .18) 1.2px, transparent 1.5px); background-size: 22px 22px; }
+.final-in { padding-block: 80px; }
+.final h2 { margin: 0 0 14px; max-width: 16ch; font: 780 clamp(40px, 6.4vw, 80px)/.95 var(--font-display); letter-spacing: -.04em; text-wrap: balance; }
+.final p { margin: 0 0 28px; font: 400 19px/1.5 var(--font-sans); opacity: .92; }
+.cta.inv { background: #ffffff; color: #1a3cb0; box-shadow: none; }
+.cta.inv:hover { background: #eef2ff; }
+.btn2.inv { background: transparent; color: #ffffff; border-color: rgba(255, 255, 255, .7); }
+.btn2.inv:hover { background: rgba(255, 255, 255, .12); }
+.home-foot { padding-block: 32px 48px; }
+.home-foot p { max-width: 70ch; margin: 0; font: 400 13px/1.6 var(--font-sans); color: var(--ink-muted); }
+.home-foot a { color: var(--brand-ink); }
+@media (prefers-reduced-motion: reduce) { .home, .home * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 </style>
 
 <div id="app"></div>
@@ -648,6 +909,12 @@ const P = {
   importIcon: 'M4.5 4.5h10l5 5v10h-15zM14.5 4.5v5h5M8.5 14l2.5 2.5 4.5-5',
   lock: 'M6.5 10.5h11v9h-11zM8.5 10.5V8a3.5 3.5 0 017 0v2.5',
   search: 'M11 18.5a7.5 7.5 0 100-15 7.5 7.5 0 000 15zM16.5 16.5l4 4',
+  arrowRight: 'M5 12h14M13 5.5l6.5 6.5-6.5 6.5',
+  menu: 'M4 7h16M4 12h16M4 17h16',
+  keyboard: 'M3.5 6.5h17v11h-17zM7 10h.01M11 10h.01M15 10h.01M8 14h8',
+  home: 'M4 11l8-6.5 8 6.5M6 9.5v10h12v-10',
+  panelOpen: 'M4.5 4.5h15v15h-15zM9.5 4.5v15M13 10l2 2-2 2',
+  panelClose: 'M4.5 4.5h15v15h-15zM9.5 4.5v15M15.5 10l-2 2 2 2',
   pencil: 'M4.5 19.5l1-4 10-10 3 3-10 10zM13.5 7.5l3 3'
 };
 const Icon = ({ n, s = 20, w = 1.75 }) => html`<svg class="ico" width=${s} height=${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=${w} stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d=${P[n] || P.file} /></svg>`;
@@ -740,7 +1007,7 @@ function cleanSettings(s) {
   };
 }
 const PREF_KEY = 'collabfin-prefs-v1';
-const PREF_DEFAULTS = { showTips: true, showAmounts: true, sid: 'main', theme: 'system', textSize: 100, contrast: false, cbSafe: false, reduceMotion: false, spacing: false, focusStrong: false, hideCursors: false, announce: false };
+const PREF_DEFAULTS = { showTips: true, showAmounts: true, bid: 'main', sid: 'main', railOpen: false, seenHome: false, theme: 'system', textSize: 100, contrast: false, cbSafe: false, reduceMotion: false, spacing: false, focusStrong: false, hideCursors: false, announce: false };
 function loadPrefs() { try { const p = Object.assign({}, PREF_DEFAULTS, JSON.parse(localStorage.getItem(PREF_KEY) || '{}')); if (![100, 115, 130].includes(p.textSize)) p.textSize = 100; if (!['system', 'light', 'dark'].includes(p.theme)) p.theme = 'system'; return p; } catch (e) { return { ...PREF_DEFAULTS }; } }
 const PrefsCtx = createContext({ showTips: true, showAmounts: true });
 
@@ -1301,8 +1568,11 @@ function createLocalDb(key) {
 }
 
 /* ---------- storage hook: one scenario of the board ---------- */
-const basePath = (sid) => (sid === 'main' ? '' : 'scenarios/' + sid + '/');
-function useStore(sid) {
+/* Paths. The first board lives at the top of the store (so existing data keeps working);
+   every other board lives under boards/<id>/. Plans (scenarios) live under a board. */
+const boardPrefix = (bid) => (bid === 'main' ? '' : 'boards/' + bid + '/');
+const basePath = (bid, sid) => boardPrefix(bid) + (sid === 'main' ? '' : 'scenarios/' + sid + '/');
+function useStore(bid, sid) {
   const [db, setDb] = useState(null);
   const [mode, setMode] = useState('loading');
   const [cards, setCards] = useState({});
@@ -1311,12 +1581,17 @@ function useStore(sid) {
   const [settings, setSettingsState] = useState(cleanSettings());
   const [scenarios, setScenarios] = useState({});
   const [scenLoaded, setScenLoaded] = useState(false);
+  const [boards, setBoards] = useState({});
+  const [boardsLoaded, setBoardsLoaded] = useState(false);
   const [ready, setReady] = useState(false);
   const cardsRef = useRef(cards); cardsRef.current = cards;
   const linksRef = useRef(links); linksRef.current = links;
   const settingsRef = useRef(settings); settingsRef.current = settings;
   const metaRef = useRef(meta); metaRef.current = meta;
   const sidRef = useRef(sid); sidRef.current = sid;
+  const bidRef = useRef(bid); bidRef.current = bid;
+  const boardsRef = useRef(boards); boardsRef.current = boards;
+  const toMap = (snap) => { const m = {}; snap.docs.forEach((d) => { const v = d.data(); if (v) m[d.id] = { ...v, id: d.id }; }); return m; };
 
   useEffect(() => {
     let alive = true;
@@ -1339,32 +1614,40 @@ function useStore(sid) {
 
   useEffect(() => {
     if (!db) return;
-    const unsubs = [];
-    const fail = (e) => say(e && e.code === 'revoked' ? 'Live updates stopped for this view.' : 'Live updates paused. Reload to reconnect.');
-    unsubs.push(db.doc('board/meta').onSnapshot((s) => { if (s.exists) setMeta(s.data()); }, () => {}));
-    unsubs.push(db.doc('board/settings').onSnapshot((s) => { if (s.exists) setSettingsState(cleanSettings(s.data())); }, () => {}));
-    unsubs.push(db.collection('scenarios').onSnapshot((s) => { const m = {}; s.docs.forEach((d) => { const v = d.data(); if (v && typeof v.name === 'string') m[d.id] = { ...v, id: d.id }; }); setScenarios(m); if (!s.metadata.fromCache) setScenLoaded(true); }, () => {}));
-    return () => unsubs.forEach((u) => u());
+    const u = db.collection('boards').onSnapshot((s) => { const m = {}; s.docs.forEach((d) => { const v = d.data(); if (v && typeof v.name === 'string') m[d.id] = { ...v, id: d.id }; }); setBoards(m); if (!s.metadata.fromCache) setBoardsLoaded(true); }, () => {});
+    return u;
   }, [db]);
+
+  useEffect(() => {
+    if (!db) return;
+    const unsubs = [], p = boardPrefix(bid);
+    setMeta({ title: bid === 'main' ? 'Household budget' : (boardsRef.current[bid] && boardsRef.current[bid].name) || 'Untitled board' });
+    setSettingsState(cleanSettings()); setScenarios({}); setScenLoaded(false);
+    unsubs.push(db.doc(p + 'board/meta').onSnapshot((s) => { if (s.exists) setMeta(s.data()); }, () => {}));
+    unsubs.push(db.doc(p + 'board/settings').onSnapshot((s) => { if (s.exists) setSettingsState(cleanSettings(s.data())); }, () => {}));
+    unsubs.push(db.collection(p + 'scenarios').onSnapshot((s) => { const m = {}; s.docs.forEach((d) => { const v = d.data(); if (v && typeof v.name === 'string') m[d.id] = { ...v, id: d.id }; }); setScenarios(m); if (!s.metadata.fromCache) setScenLoaded(true); }, () => {}));
+    return () => unsubs.forEach((u) => u());
+  }, [db, bid]);
 
   useEffect(() => {
     if (!db) return;
     let alive = true;
     setReady(false); setCards({}); setLinks({});
-    const unsubs = [], base = basePath(sid);
+    const unsubs = [], base = basePath(bid, sid);
     const got = { cards: false, links: false };
     const settle = (k, snap) => { if (!snap.metadata.fromCache) { got[k] = true; if (got.cards && got.links && alive) setReady(true); } };
     const fail = (e) => say(e && e.code === 'revoked' ? 'Live updates stopped for this view.' : 'Live updates paused. Reload to reconnect.');
-    const toMap = (snap) => { const m = {}; snap.docs.forEach((d) => { const v = d.data(); if (v) m[d.id] = { ...v, id: d.id }; }); return m; };
     unsubs.push(db.collection(base + 'cards').onSnapshot((s) => { if (alive) { setCards(toMap(s)); settle('cards', s); } }, fail));
     unsubs.push(db.collection(base + 'links').onSnapshot((s) => { if (alive) { setLinks(toMap(s)); settle('links', s); } }, fail));
     const t = setTimeout(() => alive && setReady(true), 5000);
     return () => { alive = false; clearTimeout(t); unsubs.forEach((u) => u()); };
-  }, [db, sid]);
+  }, [db, bid, sid]);
 
   const raw = useMemo(() => {
     const guard = (p) => Promise.resolve(p).catch((e) => say(dbMessage(e)));
-    const col = (k) => db.collection(basePath(sidRef.current) + k);
+    const col = (k) => db.collection(basePath(bidRef.current, sidRef.current) + k);
+    const pre = () => boardPrefix(bidRef.current);
+    const wipe = async (collPath) => { const snap = await db.collection(collPath).get(); await Promise.all(snap.docs.map((d) => db.collection(collPath).doc(d.id).delete())); };
     return {
       addCard(c) { setCards((m) => ({ ...m, [c.id]: c })); if (db) guard(col('cards').doc(c.id).set(c)); },
       updateCard(id, patch) {
@@ -1380,30 +1663,54 @@ function useStore(sid) {
       },
       addLink(l) { setLinks((m) => ({ ...m, [l.id]: l })); if (db) guard(col('links').doc(l.id).set(l)); },
       removeLink(id) { setLinks((m) => { const n = { ...m }; delete n[id]; return n; }); if (db) guard(col('links').doc(id).delete()); },
-      setMeta(patch) { const next = { ...metaRef.current, ...patch }; setMeta(next); if (db) guard(db.doc('board/meta').set(next)); },
-      setSettings(next) { next = cleanSettings(next); setSettingsState(next); if (db) guard(db.doc('board/settings').set(next)); },
+      setMeta(patch) {
+        const next = { ...metaRef.current, ...patch }; setMeta(next);
+        if (db) { guard(db.doc(pre() + 'board/meta').set(next)); if ('title' in patch) this.touchBoard(bidRef.current, patch.title); }
+      },
+      setSettings(next) { next = cleanSettings(next); setSettingsState(next); if (db) guard(db.doc(pre() + 'board/settings').set(next)); },
       getScenario: async (s2) => {
-        const b = basePath(s2);
+        const b = basePath(bidRef.current, s2);
         const [cs, ls] = await Promise.all([db.collection(b + 'cards').get(), db.collection(b + 'links').get()]);
-        const m = (snap) => { const o = {}; snap.docs.forEach((d) => { const v = d.data(); if (v) o[d.id] = { ...v, id: d.id }; }); return o; };
-        return { cards: m(cs), links: m(ls) };
+        return { cards: toMap(cs), links: toMap(ls) };
       },
       async createScenario(name, fromCards, fromLinks, basedOn) {
-        const id = uid('s'), b = basePath(id);
-        await db.doc('scenarios/' + id).set({ name, basedOn, createdAt: Date.now() });
+        const id = uid('s'), b = basePath(bidRef.current, id);
+        await db.doc(pre() + 'scenarios/' + id).set({ name, basedOn, createdAt: Date.now() });
         await Promise.all(Object.values(fromCards).map((c) => db.collection(b + 'cards').doc(c.id).set(c)).concat(Object.values(fromLinks).map((l) => db.collection(b + 'links').doc(l.id).set(l))));
         return id;
       },
-      renameScenario(id, name) { if (id === 'main') return this.setMeta({ mainName: name }); guard(db.doc('scenarios/' + id).update({ name })); },
+      renameScenario(id, name) { if (id === 'main') return this.setMeta({ mainName: name }); guard(db.doc(pre() + 'scenarios/' + id).update({ name })); },
       async deleteScenario(id) {
         if (id === 'main') return;
-        const d = await this.getScenario(id), b = basePath(id);
-        await Promise.all(Object.keys(d.cards).map((k) => db.collection(b + 'cards').doc(k).delete()).concat(Object.keys(d.links).map((k) => db.collection(b + 'links').doc(k).delete())));
-        await db.doc('scenarios/' + id).delete();
+        const b = basePath(bidRef.current, id);
+        await Promise.all([wipe(b + 'cards'), wipe(b + 'links')]);
+        await db.doc(pre() + 'scenarios/' + id).delete();
+      },
+      /* boards */
+      touchBoard(id, name) {
+        if (!db) return;
+        const cur = boardsRef.current[id] || {};
+        guard(db.doc('boards/' + id).set({ name: String(name || cur.name || 'Untitled board').slice(0, 60), createdAt: cur.createdAt || Date.now(), updatedAt: Date.now() }));
+      },
+      async createBoard(name, withSettings) {
+        const id = uid('b'), p = boardPrefix(id), now = Date.now();
+        await db.doc('boards/' + id).set({ name, createdAt: now, updatedAt: now });
+        await db.doc(p + 'board/meta').set({ title: name });
+        if (withSettings) await db.doc(p + 'board/settings').set(cleanSettings({ ...withSettings, primaryAccount: '' }));
+        return id;
+      },
+      async deleteBoard(id) {
+        if (id === 'main') return;
+        const p = boardPrefix(id);
+        const sc = await db.collection(p + 'scenarios').get();
+        await Promise.all(sc.docs.map((d) => Promise.all([wipe(p + 'scenarios/' + d.id + '/cards'), wipe(p + 'scenarios/' + d.id + '/links')])));
+        await Promise.all([wipe(p + 'cards'), wipe(p + 'links'), wipe(p + 'activity'), wipe(p + 'scenarios')]);
+        await Promise.all([db.doc(p + 'board/meta').delete(), db.doc(p + 'board/settings').delete()]);
+        await db.doc('boards/' + id).delete();
       }
     };
   }, [db]);
-  return { db, mode, cards, links, meta, settings, scenarios, scenLoaded, ready, raw, cardsRef, linksRef, settingsRef, metaRef };
+  return { db, mode, cards, links, meta, settings, scenarios, scenLoaded, boards, boardsLoaded, ready, raw, cardsRef, linksRef, settingsRef, metaRef };
 }
 
 /* ---------- undo, redo and the shared change history ---------- */
@@ -1509,24 +1816,28 @@ function useHistory(store, log) {
   const peek = () => ({ undo: undoS.current[undoS.current.length - 1], redo: redoS.current[redoS.current.length - 1] });
   return { ops, tx, undo, redo, clear, peek };
 }
-function useActivity(db, sid, whoRef) {
+function useActivity(db, prefix, sid, whoRef, onFlush) {
   const session = useRef(uid('s'));
   const buf = useRef([]), timer = useRef(null);
   const [docs, setDocs] = useState([]);
+  const flushRef = useRef(onFlush); flushRef.current = onFlush;
   useEffect(() => {
     if (!db) return;
-    const u = db.collection('activity').orderBy('at', 'desc').limit(12).onSnapshot((s) => setDocs(s.docs.map((d) => ({ id: d.id, ...(d.data() || {}) }))), () => {});
-    db.collection('activity').where('at', '<', Date.now() - 30 * 864e5).limit(20).get().then((s) => s.docs.forEach((d) => db.collection('activity').doc(d.id).delete().catch(() => {}))).catch(() => {});
+    buf.current = []; session.current = uid('s'); setDocs([]);
+    const col = prefix + 'activity';
+    const u = db.collection(col).orderBy('at', 'desc').limit(12).onSnapshot((s) => setDocs(s.docs.map((d) => ({ id: d.id, ...(d.data() || {}) }))), () => {});
+    db.collection(col).where('at', '<', Date.now() - 30 * 864e5).limit(20).get().then((s) => s.docs.forEach((d) => db.collection(col).doc(d.id).delete().catch(() => {}))).catch(() => {});
     return u;
-  }, [db]);
+  }, [db, prefix]);
   const log = useCallback((text) => {
     if (!db) return;
     buf.current = buf.current.concat([{ t: Date.now(), text: String(text).slice(0, 200), sid }]).slice(-60);
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      db.collection('activity').doc(session.current).set({ at: Date.now(), who: whoRef.current || null, entries: buf.current }).catch(() => {});
+      db.collection(prefix + 'activity').doc(session.current).set({ at: Date.now(), who: whoRef.current || null, entries: buf.current }).catch(() => {});
+      if (flushRef.current) flushRef.current();
     }, 700);
-  }, [db, sid]);
+  }, [db, prefix, sid]);
   const entries = useMemo(() => {
     const all = [];
     docs.forEach((d) => (Array.isArray(d.entries) ? d.entries : []).forEach((e) => { if (e && typeof e.text === 'string') all.push({ ...e, who: d.who, mine: d.id === session.current }); }));
@@ -1536,7 +1847,7 @@ function useActivity(db, sid, whoRef) {
 }
 
 /* ---------- live presence ---------- */
-function usePresence(sid) {
+function usePresence(bid, sid) {
   const [room, setRoom] = useState(null);
   const [user, setUser] = useState(null);
   const [me, setMe] = useState(null);
@@ -1553,7 +1864,7 @@ function usePresence(sid) {
     const un = room.onPeers((ch) => setPeers(ch.peers.filter((p) => p.kind === 'viewer' && !p.sameTab)), () => {});
     return un;
   }, [room]);
-  useEffect(() => { if (room) room.presence({ who: me || null, sid, color: hashN(me || 'x') }).catch(() => {}); }, [room, me, sid]);
+  useEffect(() => { if (room) room.presence({ who: me || null, bid, sid, color: hashN(me || 'x') }).catch(() => {}); }, [room, me, bid, sid]);
   const ids = peers.map((p) => p.presence && typeof p.presence.who === 'string' ? p.presence.who : null).filter(Boolean);
   useEffect(() => {
     if (!user) return;
@@ -1567,27 +1878,69 @@ function usePresence(sid) {
 }
 
 /* ---------- small components ---------- */
+/* ---------- tooltips: always rendered on top of everything, placed to stay on screen ---------- */
+function FloatTip({ anchor, side, id, rich, children, onEnter, onLeave }) {
+  const ref = useRef(null);
+  const [st, setSt] = useState({ left: -9999, top: -9999, placed: '' });
+  React.useLayoutEffect(() => {
+    const el = ref.current; if (!el || !anchor) return;
+    const r = anchor.getBoundingClientRect(), w = el.offsetWidth, h = el.offsetHeight, vw = window.innerWidth, vh = window.innerHeight, gap = 8;
+    const fits = { top: r.top - h - gap >= 8, bottom: r.bottom + h + gap <= vh - 8, right: r.right + w + gap <= vw - 8, left: r.left - w - gap >= 8 };
+    let s = side || 'top';
+    if (!fits[s]) s = ['top', 'bottom', 'right', 'left'].find((k) => fits[k]) || 'bottom';
+    let left, top;
+    if (s === 'top' || s === 'bottom') { left = r.left + r.width / 2 - w / 2; top = s === 'top' ? r.top - h - gap : r.bottom + gap; }
+    else { top = r.top + r.height / 2 - h / 2; left = s === 'right' ? r.right + gap : r.left - w - gap; }
+    left = Math.round(clamp(left, 8, vw - w - 8)); top = Math.round(clamp(top, 8, vh - h - 8));
+    if (left !== st.left || top !== st.top || s !== st.placed) setSt({ left, top, placed: s });
+  });
+  return ReactDOM.createPortal(html`<div ref=${ref} id=${id} role="tooltip" class=${cls('ftip', rich && 'rich', st.placed && 'at-' + st.placed)}
+    style=${{ left: st.left, top: st.top }} onMouseEnter=${onEnter} onMouseLeave=${onLeave}>${children}</div>`, document.body);
+}
+/* Short labels: any element with data-tip="..." (and optional data-tip-side) gets one on hover or keyboard focus. */
+function TipLayer() {
+  const [tip, setTip] = useState(null);
+  useEffect(() => {
+    let cur = null;
+    const show = (el) => { const text = el.getAttribute('data-tip'); if (!text) return; cur = el; setTip({ el, text, side: el.getAttribute('data-tip-side') || 'top' }); };
+    const hide = () => { cur = null; setTip(null); };
+    const over = (e) => { const el = e.target.closest && e.target.closest('[data-tip]'); if (el === cur) return; if (el) show(el); else if (cur) hide(); };
+    const focus = (e) => { const el = e.target.closest && e.target.closest('[data-tip]'); if (el && el.matches(':focus-visible')) show(el); };
+    const key = (e) => { if (e.key === 'Escape') hide(); };
+    document.addEventListener('pointerover', over); document.addEventListener('focusin', focus); document.addEventListener('focusout', hide);
+    document.addEventListener('pointerdown', hide, true); window.addEventListener('scroll', hide, true); window.addEventListener('keydown', key); window.addEventListener('blur', hide);
+    return () => {
+      document.removeEventListener('pointerover', over); document.removeEventListener('focusin', focus); document.removeEventListener('focusout', hide);
+      document.removeEventListener('pointerdown', hide, true); window.removeEventListener('scroll', hide, true); window.removeEventListener('keydown', key); window.removeEventListener('blur', hide);
+    };
+  }, []);
+  if (!tip || !document.body.contains(tip.el)) return null;
+  return html`<${FloatTip} anchor=${tip.el} side=${tip.side}>${tip.text}<//>`;
+}
 let tipSeq = 0;
 function Info({ label, text, side }) {
   const prefs = useContext(PrefsCtx);
   const [open, setOpen] = useState(false);
   const id = useMemo(() => 'tip' + (++tipSeq), []);
-  const ref = useRef(null);
+  const btn = useRef(null), closeT = useRef(null);
   useEffect(() => {
     if (!open) return;
-    const away = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    const away = (e) => { const t = document.getElementById(id); if (btn.current && !btn.current.contains(e.target) && !(t && t.contains(e.target))) setOpen(false); };
     const other = (e) => { if (e.detail !== id) setOpen(false); };
-    document.addEventListener('pointerdown', away, true); window.addEventListener('cf-tip', other);
-    return () => { document.removeEventListener('pointerdown', away, true); window.removeEventListener('cf-tip', other); };
+    const off = () => setOpen(false);
+    document.addEventListener('pointerdown', away, true); window.addEventListener('cf-tip', other); window.addEventListener('scroll', off, true); window.addEventListener('wheel', off, true);
+    return () => { document.removeEventListener('pointerdown', away, true); window.removeEventListener('cf-tip', other); window.removeEventListener('scroll', off, true); window.removeEventListener('wheel', off, true); };
   }, [open]);
   if (!prefs.showTips) return null;
-  const show = () => { setOpen(true); window.dispatchEvent(new CustomEvent('cf-tip', { detail: id })); };
+  const show = () => { clearTimeout(closeT.current); setOpen(true); window.dispatchEvent(new CustomEvent('cf-tip', { detail: id })); };
+  const later = () => { clearTimeout(closeT.current); closeT.current = setTimeout(() => setOpen(false), 140); };
   const body = typeof text === 'string' ? html`<p>${text}</p>` : html`<b>How it works</b><p>${text.what}</p><b>Best practice</b><p>${text.best}</p>`;
-  return html`<span class="info-wrap" ref=${ref} onMouseEnter=${show} onMouseLeave=${() => setOpen(false)}>
-    <button type="button" class="info" aria-label=${'About ' + label} aria-expanded=${open} aria-describedby=${open ? id : undefined}
-      onClick=${(e) => { e.preventDefault(); e.stopPropagation(); show(); }} onFocus=${show} onBlur=${() => setOpen(false)}
-      onKeyDown=${(e) => { if (e.key === 'Escape') setOpen(false); }}><${Icon} n="info" s=${16} /></button>
-    ${open ? html`<span class=${cls('tip', side)} id=${id} role="tooltip">${body}</span>` : null}
+  return html`<span class="info-wrap">
+    <button type="button" ref=${btn} class="info" aria-label=${'About ' + label} aria-expanded=${open} aria-describedby=${open ? id : undefined}
+      onMouseEnter=${show} onMouseLeave=${later}
+      onClick=${(e) => { e.preventDefault(); e.stopPropagation(); show(); }} onFocus=${show} onBlur=${later}
+      onKeyDown=${(e) => { if (e.key === 'Escape') { e.stopPropagation(); setOpen(false); } }}><${Icon} n="info" s=${16} /></button>
+    ${open ? html`<${FloatTip} anchor=${btn.current} id=${id} rich side=${side === 'right' ? 'bottom' : side === 'left' ? 'bottom' : 'bottom'} onEnter=${show} onLeave=${later}>${body}<//>` : null}
   </span>`;
 }
 function NumberInput({ value, onCommit, label, size, suffix, rule, placeholder }) {
@@ -2324,6 +2677,326 @@ function ScenarioMenu({ sid, scenarioList, onSwitch, onCreate, onRename, onDelet
   </div>`;
 }
 
+/* ---------- Boards and plans drawer (the hamburger menu) ---------- */
+function BoardsDrawer({ boards, bid, boardName, scenarioList, sid, onOpenBoard, onOpenPlan, onCreate, onDelete, onClose, onNav, mode }) {
+  const [creating, setCreating] = useState(false);
+  const [name, setName] = useState('');
+  const [start, setStart] = useState('blank');
+  const [err, setErr] = useState(null);
+  const [confirm, setConfirm] = useState(null);
+  const ref = useRef(null);
+  useEffect(() => {
+    const k = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', k);
+    requestAnimationFrame(() => { const f = ref.current && ref.current.querySelector('button'); if (f) f.focus({ preventScroll: true }); });
+    return () => window.removeEventListener('keydown', k);
+  }, []);
+  const list = Object.values(boards).map((b) => (b.id === 'main' && b.id === bid ? { ...b, name: boardName } : b));
+  if (!list.some((b) => b.id === 'main')) list.push({ id: 'main', name: bid === 'main' ? boardName : 'My first board', updatedAt: 0 });
+  if (bid !== 'main' && !list.some((b) => b.id === bid)) list.push({ id: bid, name: boardName, updatedAt: Date.now() });
+  list.sort((a, b) => (b.id === bid) - (a.id === bid) || num(b.updatedAt) - num(a.updatedAt));
+  const submit = (e) => {
+    e.preventDefault();
+    const t = name.trim();
+    if (!t) { setErr('Give the board a name.'); return; }
+    if (t.length > 60) { setErr('Keep the name under 60 characters.'); return; }
+    if (list.some((b) => String(b.name).trim().toLowerCase() === t.toLowerCase())) { setErr('You already have a board with that name.'); return; }
+    if (list.length >= 20) { setErr('You can keep up to 20 boards. Delete one to add another.'); return; }
+    onCreate(t, start); onClose();
+  };
+  const startOptions = [{ value: 'blank', label: 'A blank board' }, { value: 'import', label: 'A bank statement' }].concat(TEMPLATES.map((t) => ({ value: 'tpl:' + t.id, label: t.name, hint: 'Template' })));
+  return html`<div class="scrim drawer-scrim" onClick=${onClose}></div>
+    <aside class="drawer" ref=${ref} role="dialog" aria-modal="true" aria-label="Boards and plans">
+      <div class="drawer-head"><h2>Your boards</h2><button class="close" aria-label="Close boards and plans" onClick=${onClose}><${Icon} n="x" /></button></div>
+      <div class="drawer-body">
+        ${!creating ? html`<button class="cta block" onClick=${() => { setCreating(true); setName(''); setErr(null); }}><${Icon} n="plus" s=${20} />New board</button>`
+          : html`<form class="new-board" onSubmit=${submit}>
+              <label class="eyebrow" for="nb-name">Board name</label>
+              <input id="nb-name" class=${cls('text-in', err && 'bad')} autoFocus=${true} maxLength=${80} value=${name} placeholder="Wedding budget" onChange=${(e) => { setName(e.target.value); setErr(null); }} />
+              ${err ? html`<span class="field-err" role="alert">${err}</span>` : null}
+              <span class="eyebrow">Start with</span>
+              <${Select} label="Start with" value=${start} options=${startOptions} searchable=${false} onChange=${setStart} />
+              <div class="row-btns"><button class="btn-sm primary" type="submit">Create board</button><button class="btn-sm" type="button" onClick=${() => setCreating(false)}>Cancel</button></div>
+            </form>`}
+        <nav aria-label="Boards" class="board-list">
+          ${list.map((b) => {
+            const on = b.id === bid;
+            return html`<div key=${b.id} class=${cls('board-item', on && 'on')}>
+              <div class="board-row">
+                <button class="board-open" aria-current=${on ? 'page' : undefined} onClick=${() => { if (!on) onOpenBoard(b.id); onClose(); }}>
+                  <span class="b-ico"><${Icon} n="grid" s=${18} /></span>
+                  <span class="b-text"><b>${b.name || 'Untitled board'}</b><small>${on ? 'Open now' : b.updatedAt ? 'Updated ' + ago(b.updatedAt) : 'Not opened yet'}</small></span>
+                </button>
+                ${b.id !== 'main' ? html`<button class="icon-btn" aria-label=${'Delete ' + (b.name || 'board')} data-tip="Delete board" onClick=${() => setConfirm(b.id)}><${Icon} n="trash" s=${16} /></button>` : null}
+              </div>
+              ${confirm === b.id ? html`<div class="confirm" role="alert"><p>Delete “${b.name}”, its plans and its history for everyone? This can’t be undone.</p>
+                <div class="row-btns"><button class="btn-sm danger" onClick=${() => { onDelete(b.id); setConfirm(null); }}>Delete board</button><button class="btn-sm" onClick=${() => setConfirm(null)}>Keep it</button></div></div>` : null}
+              ${on ? html`<div class="plans" role="group" aria-label=${'Plans in ' + b.name}>
+                  <span class="eyebrow">Plans</span>
+                  ${scenarioList.map((s) => html`<button key=${s.id} class=${cls('plan-item', s.id === sid && 'on')} aria-current=${s.id === sid ? 'true' : undefined} onClick=${() => { onOpenPlan(s.id); onClose(); }}>
+                    <span class="ck">${s.id === sid ? html`<${Icon} n="check" s=${16} w=${2.25} />` : null}</span>${s.name}</button>`)}
+                  <button class="plan-item muted-item" onClick=${() => { onNav('newPlan'); onClose(); }}><span class="ck"><${Icon} n="plus" s=${16} /></span>New plan from “${(scenarioList.find((s) => s.id === sid) || {}).name || 'this plan'}”</button>
+                  ${scenarioList.length > 1 ? html`<button class="plan-item muted-item" onClick=${() => { onNav('compare'); onClose(); }}><span class="ck"><${Icon} n="compare" s=${16} /></span>Compare plans</button>` : null}
+                </div>` : null}
+            </div>`;
+          })}
+        </nav>
+        <nav class="drawer-links" aria-label="Go to">
+          ${[['home', 'home', 'Home'], ['templates', 'grid', 'Templates'], ['import', 'importIcon', 'Import a statement'], ['history', 'clock', 'History'], ['settings', 'sliders', 'Settings'], ['keys', 'keyboard', 'Keyboard shortcuts']].map(([k, ic, l]) => html`<button key=${k} class="plan-item" onClick=${() => { onNav(k); onClose(); }}><span class="ck"><${Icon} n=${ic} s=${18} /></span>${l}</button>`)}
+        </nav>
+        ${mode === 'local' ? html`<p class="muted">Boards are saved in this browser because shared storage isn’t available here.</p>` : null}
+      </div>
+    </aside>`;
+}
+
+/* ---------- Home: the landing page ---------- */
+function prefersReduced() {
+  return document.documentElement.getAttribute('data-motion') === 'reduce' || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+function useInView(ref) {
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el || seen) return;
+    if (!('IntersectionObserver' in window)) { setSeen(true); return; }
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { setSeen(true); io.disconnect(); } }, { threshold: 0.25 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return seen;
+}
+function useCountUp(target, play, ms = 1400) {
+  const [v, setV] = useState(target);
+  useEffect(() => {
+    if (!play || prefersReduced()) { setV(target); return; }
+    let raf, t0;
+    const step = (t) => { if (!t0) t0 = t; const p = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - p, 3); setV(target * e); if (p < 1) raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [play, target]);
+  return v;
+}
+const usd = (v) => (v < 0 ? '−' : '') + '$' + Math.round(Math.abs(v)).toLocaleString('en-US');
+
+function HeroCanvas() {
+  const ref = useRef(null), seen = useInView(ref), moving = !prefersReduced();
+  const bal = useCountUp(26690, seen, 1800);
+  return html`<div class="illo hero-illo" ref=${ref} aria-hidden="true">
+    <svg viewBox="0 0 640 440" class=${cls('hero-svg', seen && 'play')}>
+      <path class="lk lk1" d="M232 88 C 300 88, 300 186, 356 186" /><path class="lk lk2" d="M232 300 C 300 300, 300 214, 356 214" /><path class="lk lk3" d="M588 200 C 610 200, 610 330, 560 356" />
+      <path class="lk-flow" d="M232 88 C 300 88, 300 186, 356 186" /><path class="lk-flow" d="M232 300 C 300 300, 300 214, 356 214" />
+      ${moving ? html`<circle r="5" class="coin"><animateMotion dur="2.4s" repeatCount="indefinite" path="M232 88 C 300 88, 300 186, 356 186" /></circle>
+        <circle r="5" class="coin out"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M232 300 C 300 300, 300 214, 356 214" /></circle>` : null}
+      <g class="hc hc1"><rect x="24" y="40" width="208" height="112" rx="16" class="card-r" /><rect x="40" y="56" width="30" height="30" rx="9" class="w-gain" />
+        <text x="82" y="68" class="t-eye">INCOME</text><text x="82" y="86" class="t-title">Paychecks</text><text x="40" y="132" class="t-big pos">+$5,633</text><text x="150" y="132" class="t-small">/ mo</text></g>
+      <g class="hc hc2"><rect x="24" y="236" width="208" height="128" rx="16" class="card-r peer" /><rect x="40" y="252" width="30" height="30" rx="9" class="w-loss" />
+        <text x="82" y="264" class="t-eye">RECURRING</text><text x="82" y="282" class="t-title">Bills</text>
+        <rect x="40" y="298" width="176" height="18" rx="6" class="row-r" /><rect x="40" y="320" width="130" height="18" rx="6" class="row-r" /><text x="40" y="354" class="t-big neg">−$3,456</text>
+        <rect x="24" y="210" width="118" height="22" rx="11" class="p3f" /><text x="34" y="225" class="t-tag">Priya is editing</text></g>
+      <g class="hc hc3"><rect x="356" y="120" width="232" height="164" rx="18" class="card-r strong" /><rect x="372" y="136" width="30" height="30" rx="9" class="w-brand" />
+        <text x="414" y="148" class="t-eye">CHECKING ACCOUNT</text><text x="414" y="166" class="t-title">Joint checking</text>
+        <text x="372" y="198" class="t-eye">BALANCE IN 12 MONTHS</text><text x="372" y="244" class="t-hero">${usd(bal)}</text>
+        <rect x="372" y="256" width="96" height="20" rx="10" class="pill-gain" /><text x="382" y="270" class="t-pill pos">↑ +$2,177</text></g>
+      <g class="hc hc4"><rect x="408" y="324" width="208" height="92" rx="16" class="card-r" /><rect x="424" y="340" width="30" height="30" rx="9" class="w-acc" />
+        <text x="466" y="352" class="t-eye">SAVINGS GOAL</text><text x="466" y="370" class="t-title">Emergency fund</text><text x="424" y="404" class="t-big">Feb 2028</text></g>
+      <g class="tag-g"><rect x="262" y="118" width="68" height="22" rx="11" class="tag-r" /><text x="296" y="133" class="t-tagc pos">+$5,633</text>
+        <rect x="262" y="262" width="68" height="22" rx="11" class="tag-r" /><text x="296" y="277" class="t-tagc neg">−$3,456</text></g>
+      <g class="cur cur1"><path d="M0 0 L14 7 L8 9 L6 15 Z" class="p2f cur-a" /><rect x="12" y="14" width="46" height="20" rx="10" class="p2f" /><text x="35" y="28" class="t-tagc on">Sam</text></g>
+      <g class="cur cur2"><path d="M0 0 L14 7 L8 9 L6 15 Z" class="p3f cur-a" /><rect x="12" y="14" width="52" height="20" rx="10" class="p3f" /><text x="38" y="28" class="t-tagc on">Priya</text></g>
+    </svg>
+  </div>`;
+}
+
+function FlowIllo() {
+  const ref = useRef(null), seen = useInView(ref), moving = !prefersReduced();
+  const left = useCountUp(2177, seen);
+  return html`<div class="illo" ref=${ref} aria-hidden="true"><svg viewBox="0 0 400 280" class=${cls(seen && 'play')}>
+    <path class="lk" d="M150 60 C 200 60, 200 130, 240 130" /><path class="lk" d="M150 220 C 200 220, 200 150, 240 150" /><path class="lk-flow" d="M150 60 C 200 60, 200 130, 240 130" /><path class="lk-flow" d="M150 220 C 200 220, 200 150, 240 150" />
+    ${moving ? html`<circle r="4.5" class="coin"><animateMotion dur="2s" repeatCount="indefinite" path="M150 60 C 200 60, 200 130, 240 130" /></circle><circle r="4.5" class="coin out"><animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M150 220 C 200 220, 200 150, 240 150" /></circle>` : null}
+    <g class="pop pop1"><rect x="16" y="24" width="134" height="72" rx="14" class="card-r" /><text x="30" y="48" class="t-eye">PAYCHECK</text><text x="30" y="80" class="t-big pos">+$5,633</text></g>
+    <g class="pop pop2"><rect x="16" y="184" width="134" height="72" rx="14" class="card-r" /><text x="30" y="208" class="t-eye">BILLS + GROCERIES</text><text x="30" y="240" class="t-big neg">−$3,456</text></g>
+    <g class="pop pop3"><rect x="240" y="84" width="144" height="112" rx="16" class="card-r strong" /><text x="256" y="110" class="t-eye">LEFT OVER / MO</text><text x="256" y="152" class="t-hero s">+${usd(left).slice(1)}</text><text x="256" y="180" class="t-small">30% to savings</text></g>
+  </svg></div>`;
+}
+
+function TaxIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const parts = [['Take-home', 75607, 'tb-home'], ['Federal', 13434, 'tb-fed'], ['401(k)', 8800, 'tb-pre'], ['Social Security + Medicare', 8415, 'tb-fica'], ['Colorado', 3744, 'tb-state']];
+  const total = 110000, take = useCountUp(6301, seen);
+  return html`<div class="illo pad" ref=${ref} aria-hidden="true">
+    <div class=${cls('tax-card', seen && 'play')}>
+      <div class="eyebrow">Take-home per month</div><div class="tx-hero">${usd(take)}</div>
+      <div class="tbar">${parts.map(([n, v, c], i) => html`<span key=${n} class=${'tseg ' + c} style=${{ width: (v / total * 100) + '%', animationDelay: (i * 120) + 'ms' }}></span>`)}</div>
+      <ul class="tlegend">${parts.map(([n, v, c]) => html`<li key=${n}><i class=${c}></i><span>${n}</span><b>${usd(v)}</b></li>`)}</ul>
+    </div>
+  </div>`;
+}
+
+function GrowthIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const pts = (end) => { const a = []; for (let i = 0; i <= 10; i++) { const x = 30 + i * 34, g = Math.pow(i / 10, 1.35); a.push([x, 230 - g * (end - 25) / 180 * 190 - 25 / 180 * 190 + 26]); } return a; };
+  const line = (arr) => 'M' + arr.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L');
+  const mid = pts(125), lo = pts(103), hi = pts(153);
+  const band = line(hi) + ' L' + lo.slice().reverse().map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L') + ' Z';
+  return html`<div class="illo" ref=${ref} aria-hidden="true"><svg viewBox="0 0 400 280" class=${cls(seen && 'play')}>
+    ${[0, 1, 2, 3].map((i) => html`<line key=${i} x1="30" x2="370" y1=${60 + i * 50} y2=${60 + i * 50} class="grid-l" />`)}
+    <path d=${band} class="band" /><path d=${line(mid)} class="gline" pathLength="1" />
+    <circle cx=${mid[10][0]} cy=${mid[10][1]} r="6" class="gdot" />
+    <text x="30" y="36" class="t-eye">INVESTING · 10 YEARS</text>
+    <text x="366" y=${hi[10][1] - 10} class="t-small end">$153k if 9%</text><text x="366" y=${mid[10][1] - 12} class="t-big end">$125k</text><text x="366" y=${lo[10][1] + 22} class="t-small end">$103k if 3%</text>
+    <text x="30" y="266" class="t-small">Today $25k</text><text x="366" y="266" class="t-small end">Year 10</text>
+  </svg></div>`;
+}
+
+function DebtIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const saved = useCountUp(3584, seen);
+  return html`<div class="illo pad" ref=${ref} aria-hidden="true"><div class=${cls('debt', seen && 'play')}>
+    <div class="eyebrow">Credit card · $6,200 at 24.99%</div>
+    <div class="drow"><span>Minimum only</span><div class="dtrack"><i class="dbar slow" style=${{ width: '100%' }}></i></div><b>62 months</b></div>
+    <div class="drow"><span>+$250 a month</span><div class="dtrack"><i class="dbar fast" style=${{ width: (18 / 62 * 100) + '%' }}></i></div><b>18 months</b></div>
+    <div class="dsave"><${Icon} n="check" s=${20} w=${2.25} /><span>Saves <b>${usd(saved)}</b> in interest and 44 months</span></div>
+  </div></div>`;
+}
+
+function ChecksIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const rows = [['error', 'Splits from Paychecks add up to 110%, more than it has.'], ['warn', 'Joint checking drops below your $1,000 buffer in month 4.'], ['tip', 'Emergency fund covers 1.8 months of spending. 3 to 6 is typical.']];
+  return html`<div class="illo pad" ref=${ref} aria-hidden="true"><div class=${cls('chk-list', seen && 'play')}>
+    ${rows.map(([lv, t], i) => html`<div key=${i} class=${'chk-row lv-' + lv} style=${{ animationDelay: (i * 220) + 'ms' }}><span class="lv-ico"><${Icon} n=${LV_ICON[lv]} s=${16} w=${2} /></span><p>${t}</p></div>`)}
+    <div class="chk-fix" style=${{ animationDelay: '800ms' }}><span class="btn-sm primary">Set to 3 months</span><span class="muted">One-click fixes</span></div>
+  </div></div>`;
+}
+
+function ImportIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const lines = ['2026-06-05, ACME PAYROLL DIR DEP, 2412.56', '2026-06-01, RENT OAKWOOD APTS, -1850.00', "2026-06-03, TRADER JOE'S #552, -84.12", '2026-06-06, COMCAST INTERNET, -69.99', '2026-06-09, NETFLIX.COM, -15.49'];
+  const chips = [['income', 'Paycheck', '$5,227/mo'], ['recurring', '6 bills', '$2,175/mo'], ['spend', 'Groceries', '$270/mo']];
+  return html`<div class="illo pad" ref=${ref} aria-hidden="true"><div class=${cls('imp', seen && 'play')}>
+    <div class="csv">${lines.map((l, i) => html`<code key=${i} style=${{ animationDelay: (i * 110) + 'ms' }}>${l}</code>`)}</div>
+    <div class="imp-arrow"><${Icon} n="arrowRight" s=${28} /></div>
+    <div class="chips-col">${chips.map(([k, n, v], i) => html`<div key=${k} class="ichip" style=${{ animationDelay: (700 + i * 150) + 'ms' }}><span class=${'pal pal-' + k}><${Icon} n=${k} s=${16} /></span><span>${n}</span><b>${v}</b></div>`)}</div>
+  </div></div>`;
+}
+
+function ScenarioIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const rows = [['Left over / mo', '+$2,177', '+$1,452'], ['Checking in 12 mo', '$26,690', '$20,600'], ['Into savings / yr', '$7,836', '$5,227'], ['Emergency fund', 'Feb 2028', 'Oct 2028']];
+  return html`<div class="illo pad" ref=${ref} aria-hidden="true"><div class=${cls('scn', seen && 'play')}>
+    <div class="scn-head"><span></span><b>Current plan</b><b class="alt">What if we move?</b></div>
+    ${rows.map(([l, a, b], i) => html`<div key=${l} class="scn-row"><span>${l}</span><em>${a}</em><em class="alt">${b}</em></div>`)}
+  </div></div>`;
+}
+
+function CollabIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  return html`<div class="illo" ref=${ref} aria-hidden="true"><svg viewBox="0 0 400 280" class=${cls('collab', seen && 'play')}>
+    <rect x="40" y="70" width="150" height="90" rx="14" class="card-r" /><text x="56" y="96" class="t-eye">GROCERIES</text><text x="56" y="136" class="t-big neg">−$780</text>
+    <rect x="216" y="120" width="150" height="100" rx="14" class="card-r peer2" /><text x="232" y="146" class="t-eye">JOINT CHECKING</text><text x="232" y="190" class="t-big">$26,690</text>
+    <rect x="216" y="94" width="110" height="22" rx="11" class="p2f" /><text x="271" y="109" class="t-tagc on">Sam is editing</text>
+    <g class="av3"><circle cx="302" cy="40" r="15" class="p1f" /><circle cx="324" cy="40" r="15" class="p2f" /><circle cx="346" cy="40" r="15" class="p3f" />
+      <text x="302" y="45" class="t-av">J</text><text x="324" y="45" class="t-av">S</text><text x="346" y="45" class="t-av">P</text></g>
+    <g class="cur c-a"><path d="M0 0 L14 7 L8 9 L6 15 Z" class="p3f cur-a" /><rect x="12" y="14" width="52" height="20" rx="10" class="p3f" /><text x="38" y="28" class="t-tagc on">Priya</text></g>
+    <g class="cur c-b"><path d="M0 0 L14 7 L8 9 L6 15 Z" class="p1f cur-a" /><rect x="12" y="14" width="40" height="20" rx="10" class="p1f" /><text x="32" y="28" class="t-tagc on">You</text></g>
+    <rect x="40" y="226" width="200" height="30" rx="10" class="hist-r" /><text x="54" y="246" class="t-small">Priya set Rent to $1,900 · just now</text>
+  </svg></div>`;
+}
+
+function A11yIllo() {
+  const ref = useRef(null), seen = useInView(ref);
+  const items = ['High contrast', 'Colour-blind-safe colours', 'Reduce motion', 'Announce changes'];
+  return html`<div class="illo pad" ref=${ref} aria-hidden="true"><div class=${cls('a11y-demo', seen && 'play')}>
+    <div class="aa"><span class="a1">Aa</span><span class="a2">Aa</span><span class="a3">Aa</span></div>
+    <div class="toggles">${items.map((t, i) => html`<div key=${t} class="tg"><span>${t}</span><i class="sw" style=${{ animationDelay: (300 + i * 350) + 'ms' }}></i></div>`)}</div>
+    <div class="cbrow"><span class="delta gain-b">↑ +$2,177</span><span class="delta loss-o">↓ −$780</span></div>
+  </div></div>`;
+}
+
+const FEATURES = [
+  { id: 'flow', eyebrow: 'Money flow', title: 'See exactly where every dollar goes.', body: 'Drop income, bills, spending and accounts onto the canvas and link them. Every card shows what it passes on, and every total updates the moment anything changes.', example: 'A $2,600 paycheck every two weeks is $5,633 a month. After $3,456 of bills and groceries, $2,177 is left, and a Split card moves 30% of it to the emergency fund.', Illo: FlowIllo },
+  { id: 'tax', eyebrow: 'Taxes built in', title: 'Know your real take-home pay.', body: 'Taxes cards use 2026 federal brackets and every state’s income, property and sales tax rates to turn a salary into monthly take-home pay you can plan with.', example: '$110,000 in Colorado, filing single, with $8,800 into a 401(k): about $6,301 a month after federal, state, Social Security and Medicare.', Illo: TaxIllo },
+  { id: 'grow', eyebrow: 'Savings, CDs and investing', title: 'Watch your money grow, honestly.', body: 'Savings compound from the APY, CDs show their maturity date and value, and investing accounts project a range, not a single promise.', example: '$25,000 invested plus $500 a month at an assumed 6%, less 0.1% fees, projects to about $125,000 in 10 years, somewhere between $103,000 and $153,000.', note: 'Projections assume steady average returns. Real markets rise and fall. This isn’t investment advice.', Illo: GrowthIllo },
+  { id: 'debt', eyebrow: 'Debt payoff', title: 'See what an extra payment is worth.', body: 'Debt cards work out the payoff date and total interest, then show exactly how much paying a little more saves you.', example: '$6,200 on a card at 24.99%: paying $250 on top of the $180 minimum clears it in 18 months instead of 62 and saves $3,584 in interest.', Illo: DebtIllo },
+  { id: 'checks', eyebrow: 'Checks and best practice', title: 'Catch mistakes before they cost you.', body: 'Collabfin checks every card as you edit: money counted twice, splits over 100%, accounts dipping below your buffer, unrealistic returns. Many problems come with a one-click fix.', example: 'Info tips on every card explain how it works and the best practice behind it, like keeping 3 to 6 months of expenses in an emergency fund.', Illo: ChecksIllo },
+  { id: 'import', eyebrow: 'Bank statement import', title: 'Start from what you actually spend.', body: 'Drop in a CSV export from your bank. Collabfin finds your paycheck, spots recurring bills and groups the rest into spending categories for you to review.', example: 'From 86 transactions over three months it found a biweekly paycheck, six bills from rent to Spotify, and five spending categories. The transactions never leave your browser.', Illo: ImportIllo },
+  { id: 'plans', eyebrow: 'Plans and scenarios', title: 'Ask “what if?” without breaking your plan.', body: 'Copy any board into a new plan, change what you like, and compare plans side by side: money left over, account balances, goal dates and debt-free dates.', example: '“What if we move?” raises rent by $725. The comparison shows $725 less each month and the emergency fund arriving 8 months later.', Illo: ScenarioIllo },
+  { id: 'live', eyebrow: 'Live together', title: 'Plan with the people you share money with.', body: 'Everyone on a board sees the same numbers, live, with cursors, who’s editing what, and a full history of changes. Undo takes back your own edits in one keystroke.', example: 'Sam updates the grocery budget while Priya checks the rent. Both see the new total as it changes, and History shows who did what.', Illo: CollabIllo },
+  { id: 'a11y', eyebrow: 'Made for everyone', title: 'Comfortable to use, whoever you are.', body: 'Bigger text, high contrast, colour-blind-safe colours, reduced motion, extra spacing, screen-reader announcements and full keyboard control. Each person chooses their own settings.', example: 'Gains and losses always show a sign and an arrow, so colour never carries the meaning on its own.', Illo: A11yIllo }
+];
+const CAPABILITIES = [
+  ['grid', 'Templates', 'Household, 50/30/20, freelancer, roommates, debt payoff and salary plans to start from.'],
+  ['zap', 'Automations', 'New cards link themselves, and savings can be paid first automatically.'],
+  ['undo', 'Undo and history', 'Take back any change, and see who changed what in the last 30 days.'],
+  ['upload', 'Files on the board', 'Keep statements, receipts and PDFs next to the numbers.'],
+  ['shield', 'Validation', 'Every amount is checked as you type, with clear messages.'],
+  ['layers', 'Boards and plans', 'Separate boards for each project, each with its own what-if plans.'],
+  ['sliders', 'Your rules', 'Savings target, bills limit, cash buffer and yearly price rises.'],
+  ['keyboard', 'Keyboard first', 'Every action has a shortcut or a button. Press ? to see them.']
+];
+
+function Home({ onOpen, onTemplates, onBoards, boardName }) {
+  const scroller = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
+  return html`<div class="home" ref=${scroller} onScroll=${(e) => setScrolled(e.currentTarget.scrollTop > 8)}>
+    <header class=${cls('home-nav', scrolled && 'scrolled')}>
+      <div class="wrap nav-in">
+        <button class="icon-btn2" aria-label="Boards and plans" data-tip="Boards and plans" onClick=${onBoards}><${Icon} n="menu" /></button>
+        <span class="home-logo">Collabfin</span>
+        <nav class="home-links" aria-label="Page"><a href="#how" onClick=${(e) => { e.preventDefault(); scroller.current.querySelector('#how').scrollIntoView({ behavior: prefersReduced() ? 'auto' : 'smooth' }); }}>How it works</a><a href="#features" onClick=${(e) => { e.preventDefault(); scroller.current.querySelector('#features').scrollIntoView({ behavior: prefersReduced() ? 'auto' : 'smooth' }); }}>Features</a></nav>
+        <button class="cta sm" onClick=${onOpen}>Open ${boardName ? '“' + boardName + '”' : 'your board'}<${Icon} n="arrowRight" s=${18} /></button>
+      </div>
+    </header>
+
+    <section class="home-hero wrap">
+      <div class="hero-text">
+        <span class="eyebrow">Collaborative money planning</span>
+        <h1>Plan your money together, on one canvas.</h1>
+        <p>Put your paycheck, bills, accounts and goals on an endless board, link them together, and watch every total update, for everyone, as you go.</p>
+        <div class="hero-ctas"><button class="cta lg" onClick=${onOpen}>Open your board<${Icon} n="arrowRight" s=${20} /></button><button class="btn2" onClick=${onTemplates}>Start from a template</button></div>
+        <ul class="proof"><li><${Icon} n="check" s=${16} w=${2.25} />2026 tax rates for all 50 states and DC</li><li><${Icon} n="check" s=${16} w=${2.25} />Live with the people you share money with</li><li><${Icon} n="check" s=${16} w=${2.25} />Works on your phone</li></ul>
+      </div>
+      <${HeroCanvas} />
+    </section>
+
+    <section class="how wrap" id="how" aria-labelledby="how-h">
+      <h2 id="how-h" class="sec-h">Three steps from a messy month to a clear plan.</h2>
+      <ol class="steps">
+        <li><span class="step-n">1</span><div><h3>Add cards</h3><p>Income, bills, spending, debts, taxes, accounts and goals. Or import a statement and let Collabfin make them.</p></div></li>
+        <li><span class="step-n">2</span><div><h3>Link them</h3><p>Drag from one card to the next to show where the money goes. Splits divide it by percentage.</p></div></li>
+        <li><span class="step-n">3</span><div><h3>See what happens</h3><p>Balances, goal dates and payoff dates project forward, and checks flag anything that doesn’t add up.</p></div></li>
+      </ol>
+    </section>
+
+    <div id="features">
+      ${FEATURES.map((f, i) => html`<section key=${f.id} class=${cls('feat wrap', i % 2 && 'flip')} aria-labelledby=${'f-' + f.id}>
+        <div class="feat-text">
+          <span class="eyebrow">${f.eyebrow}</span>
+          <h2 id=${'f-' + f.id}>${f.title}</h2>
+          <p>${f.body}</p>
+          <div class="example"><span class="eyebrow">For example</span><p>${f.example}</p></div>
+          ${f.note ? html`<p class="fine"><${Icon} n="info" s=${16} />${f.note}</p>` : null}
+        </div>
+        <${f.Illo} />
+      </section>`)}
+    </div>
+
+    <section class="caps wrap" aria-labelledby="caps-h">
+      <h2 id="caps-h" class="sec-h">And everything around it.</h2>
+      <div class="cap-grid">${CAPABILITIES.map(([ic, t, d]) => html`<div key=${t} class="cap"><span class="cap-ico"><${Icon} n=${ic} /></span><h3>${t}</h3><p>${d}</p></div>`)}</div>
+    </section>
+
+    <section class="final">
+      <div class="wrap final-in">
+        <h2>Put your first plan on the canvas.</h2>
+        <p>It takes about five minutes with a template, or one with a bank statement.</p>
+        <div class="hero-ctas"><button class="cta lg inv" onClick=${onOpen}>Open your board<${Icon} n="arrowRight" s=${20} /></button><button class="btn2 inv" onClick=${onTemplates}>Browse templates</button></div>
+      </div>
+    </section>
+    <footer class="home-foot wrap">
+      <p>Collabfin gives estimates and projections to help you plan. It isn’t financial, tax or investment advice. Tax rates are for 2026, from the <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener">IRS</a> and the <a href="https://taxfoundation.org/data/all/state/state-income-tax-rates-2026/" target="_blank" rel="noopener">Tax Foundation</a>.</p>
+    </footer>
+  </div>`;
+}
+
 /* ---------- toast ---------- */
 function Toast() {
   const [msg, setMsg] = useState(null);
@@ -2340,14 +3013,17 @@ function Toast() {
 function App() {
   const [prefs, setPrefsState] = useState(loadPrefs);
   const setPrefs = (p) => setPrefsState((old) => { const n = { ...old, ...p }; try { localStorage.setItem(PREF_KEY, JSON.stringify(n)); } catch (e) {} return n; });
+  const bid = prefs.bid || 'main';
   const sid = prefs.sid || 'main';
-  const store = useStore(sid);
-  const { cards, links, meta, settings, scenarios, scenLoaded, mode, ready, raw, db } = store;
+  const store = useStore(bid, sid);
+  const { cards, links, meta, settings, scenarios, scenLoaded, boards, boardsLoaded, mode, ready, raw, db } = store;
+  useEffect(() => { if (boardsLoaded && bid !== 'main' && !boards[bid]) { setPrefs({ bid: 'main', sid: 'main' }); say('That board was deleted, so you\u2019re back on your first board.'); } }, [boardsLoaded, boards, bid]);
+  useEffect(() => { if (boardsLoaded && ready && bid === 'main' && !boards.main) raw.touchBoard('main', meta.title); }, [boardsLoaded, ready, bid]);
   useEffect(() => { if (scenLoaded && sid !== 'main' && !scenarios[sid]) { setPrefs({ sid: 'main' }); say('That scenario was deleted, so you\u2019re back on \u201c' + (meta.mainName || 'Current plan') + '\u201d.'); } }, [scenLoaded, scenarios, sid]);
   setCurrency(settings.currency);
-  const presence = usePresence(sid);
+  const presence = usePresence(bid, sid);
   const whoRef = useRef(null); whoRef.current = presence.me;
-  const activity = useActivity(db, sid, whoRef);
+  const activity = useActivity(db, boardPrefix(bid), sid, whoRef, () => raw.touchBoard(bid, store.metaRef.current.title));
   const hist = useHistory(store, activity.log);
   const ops = hist.ops;
 
@@ -2366,6 +3042,12 @@ function App() {
   const [dropOver, setDropOver] = useState(false);
   const [importPreload, setImportPreload] = useState(null);
   const [a11yFocus, setA11yFocus] = useState(0);
+  const [page, setPage] = useState(() => { const h = (location.hash || '').slice(1); if (h === 'home') return 'home'; if (h === 'board') return 'board'; return prefs.seenHome ? 'board' : 'home'; });
+  const [drawer, setDrawer] = useState(false);
+  const pendingStart = useRef(null);
+  const boardRoot = useRef(null);
+  const go = (p) => { setPage(p); try { history.replaceState(null, '', '#' + p); } catch (e) {} if (p === 'board' && !prefs.seenHome) setPrefs({ seenHome: true }); };
+  useEffect(() => { if (boardRoot.current) boardRoot.current.inert = page === 'home'; }, [page]);
   const [announcement, setAnnouncement] = useState('');
   const hostTheme = useRef(undefined);
   useEffect(() => {
@@ -2485,7 +3167,7 @@ function App() {
     if (phone) setPanel(null);
   };
 
-  useEffect(() => { if (ready && !fitted.current) { fitted.current = true; requestAnimationFrame(() => requestAnimationFrame(() => fit())); } }, [ready, fit]);
+  useEffect(() => { if (ready && page === 'board' && !fitted.current) { fitted.current = true; requestAnimationFrame(() => requestAnimationFrame(() => fit())); } }, [ready, fit, page]);
 
   useEffect(() => {
     const el = vp.current;
@@ -2515,7 +3197,7 @@ function App() {
     return { name, color: [1, 2, 3, 4].includes(pr.color) ? pr.color : hashN(p.peer), pr };
   };
   const editors = {};
-  others.forEach((p) => { const i = peerInfo(p); if (i.pr.sid === sid && typeof i.pr.edit === 'string') editors[i.pr.edit] = i; });
+  others.forEach((p) => { const i = peerInfo(p); if ((i.pr.bid || 'main') === bid && i.pr.sid === sid && typeof i.pr.edit === 'string') editors[i.pr.edit] = i; });
 
   /* links, with constraints */
   const linkRule = (from, to) => {
@@ -2681,6 +3363,40 @@ function App() {
   };
 
   /* scenarios */
+  const switchBoard = (id) => {
+    if (id === bid) { go('board'); return; }
+    hist.clear(); setSel(null); setDrag(null); setWire(null); setConnectFrom(null); setPanel(null); setMenu(false);
+    fitted.current = false;
+    setPrefs({ bid: id, sid: 'main' });
+    go('board');
+  };
+  const createBoard = async (name, start) => {
+    try {
+      const id = await raw.createBoard(name, settingsRef.current);
+      pendingStart.current = { bid: id, start };
+      switchBoard(id);
+      say('Created \u201c' + name + '\u201d.');
+    } catch (e) { say(dbMessage(e)); }
+  };
+  const deleteBoard = async (id) => {
+    const b = boards[id];
+    if (id === bid) switchBoard('main');
+    try { await raw.deleteBoard(id); say('Deleted \u201c' + ((b && b.name) || 'board') + '\u201d.'); } catch (e) { say(dbMessage(e)); }
+  };
+  useEffect(() => {
+    const p = pendingStart.current;
+    if (!p || p.bid !== bid || !ready) return;
+    pendingStart.current = null;
+    if (p.start === 'import') setPanel('import');
+    else if (p.start && p.start.indexOf('tpl:') === 0) { const t = TEMPLATES.find((x) => 'tpl:' + x.id === p.start); if (t) addTemplate(t); }
+  }, [bid, ready]);
+  const onNav = (k) => {
+    if (k === 'home') { go('home'); return; }
+    go('board');
+    if (k === 'keys') { setPanel('settings'); setA11yFocus((n) => n + 1); }
+    else if (k === 'newPlan') setMenu(true);
+    else setPanel(k);
+  };
   const switchScenario = (id) => {
     if (id === sid) return;
     hist.clear(); setSel(null); setDrag(null); setWire(null); setConnectFrom(null);
@@ -2825,6 +3541,7 @@ function App() {
 
   useEffect(() => {
     const down = (e) => {
+      if (page === 'home' || drawer) return;
       const typing = e.target.closest && e.target.closest('input,textarea,select,[contenteditable="true"],[role="listbox"],.sel-pop');
       if (e.key === ' ' && !typing && !(e.target.closest && e.target.closest('button'))) { spaceDown.current = true; e.preventDefault(); return; }
       if (typing) return;
@@ -2868,9 +3585,10 @@ function App() {
   const pk = hist.peek();
   const avatars = [];
   const seenWho = new Set();
-  others.forEach((p) => { const i = peerInfo(p); const key = (i.pr.who || p.peer); if (seenWho.has(key)) return; seenWho.add(key); avatars.push({ ...i, key, where: i.pr.sid !== sid ? (scenarioNames[i.pr.sid] || 'another scenario') : null }); });
+  others.forEach((p) => { const i = peerInfo(p); const key = (i.pr.who || p.peer); if (seenWho.has(key)) return; seenWho.add(key); avatars.push({ ...i, key, where: (i.pr.bid || 'main') !== bid ? 'another board' : i.pr.sid !== sid ? (scenarioNames[i.pr.sid] || 'another plan') : null }); });
 
   return html`<${PrefsCtx.Provider} value=${prefs}>
+  <div ref=${boardRoot} class="board-root" aria-hidden=${page === 'home' ? 'true' : undefined}>
   <div ref=${vp} class=${cls('vp', tool === 'hand' && 'hand', panning && 'panning', (wire || connectFrom) && 'wiring')}
     style=${{ backgroundSize: grid + 'px ' + grid + 'px', backgroundPosition: view.x + 'px ' + view.y + 'px' }}
     tabIndex="-1" role="application" aria-label="Budget canvas. Drag the ground to pan, pinch or Ctrl and scroll to zoom. Drag from a card's right dot to another card to link them."
@@ -2909,7 +3627,7 @@ function App() {
           ${on ? html`<button aria-label="Remove link" onClick=${() => { ops.removeLink(l.id); setSel(null); }}><${Icon} n="x" s=${14} w=${2} /></button>` : null}
         </div>`;
       })}
-      ${prefs.hideCursors ? null : others.map((p) => { const i = peerInfo(p); if (i.pr.sid !== sid || typeof i.pr.cx !== 'number' || typeof i.pr.cy !== 'number') return null;
+      ${prefs.hideCursors ? null : others.map((p) => { const i = peerInfo(p); if ((i.pr.bid || 'main') !== bid || i.pr.sid !== sid || typeof i.pr.cx !== 'number' || typeof i.pr.cy !== 'number') return null;
         return html`<div key=${p.peer} class="cursor" style=${{ left: i.pr.cx, top: i.pr.cy, transform: 'scale(' + (1 / view.k) + ')' }} aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" class=${'f' + i.color}><path d=${P.cursor} /></svg><span class=${'cursor-tag p' + i.color}>${i.name}</span></div>`; })}
       ${selCard && !drag && !wire ? html`<div class="ctx-anchor" style=${{ left: posOf(selCard.id).x, top: posOf(selCard.id).y - 12 / view.k }}>
@@ -2924,25 +3642,24 @@ function App() {
   <div class="top">
     <div class="board-wrap">
       <div class="pill board">
-        <span class="wordmark">Collabfin</span><span class="divider"></span>
+        <button class="icon-btn2" aria-label="Boards and plans" data-tip="Boards and plans" data-tip-side="bottom" aria-haspopup="dialog" aria-expanded=${drawer} onClick=${() => setDrawer(true)}><${Icon} n="menu" /></button>
+        <button class="wordmark" aria-label="Collabfin home" data-tip="Home" data-tip-side="bottom" onClick=${() => go('home')}>Collabfin</button>
+        <span class="divider"></span>
         <${TextInput} className="board-title" required label="Board name" value=${meta.title} onCommit=${(v) => ops.setTitle(v)} />
-        <button class="scen-btn" aria-haspopup="menu" aria-expanded=${menu} onClick=${() => setMenu(!menu)} title="Scenarios"><${Icon} n="layers" s=${16} /><span>${scenarioName}</span><${Icon} n="chevron" s=${16} /></button>
-        ${mode !== 'loading' ? html`<span class=${cls('status', mode === 'local' && 'local')} title=${mode === 'shared' ? 'Everyone with access sees changes live' : 'Changes are saved in this browser only'}><i></i><span>${mode === 'shared' ? 'Live' : 'This browser'}</span></span>` : null}
-        ${avatars.length ? html`<div class="peers" aria-label=${plural(avatars.length, 'other person') + ' here'}>${avatars.slice(0, 3).map((a) => html`<span key=${a.key} class=${'av p' + a.color} title=${a.name + (a.where ? ', viewing ' + a.where : '')}>${initials(a.name)}</span>`)}${avatars.length > 3 ? html`<span class="av more">+${avatars.length - 3}</span>` : null}</div>` : null}
+        <button class="scen-btn" aria-haspopup="menu" aria-expanded=${menu} onClick=${() => setMenu(!menu)} data-tip="Plans in this board" data-tip-side="bottom"><${Icon} n="layers" s=${16} /><span>${scenarioName}</span><${Icon} n="chevron" s=${16} /></button>
+        ${mode !== 'loading' ? html`<span class=${cls('status', mode === 'local' && 'local')} tabIndex="0" data-tip=${mode === 'shared' ? 'Live: everyone with access sees changes as they happen' : 'Saved in this browser only'} data-tip-side="bottom"><i></i><span class="sr">${mode === 'shared' ? 'Live' : 'Saved in this browser'}</span></span>` : null}
+        ${avatars.length ? html`<div class="peers" aria-label=${plural(avatars.length, 'other person') + ' here'}>${avatars.slice(0, 3).map((a) => html`<span key=${a.key} class=${'av p' + a.color} data-tip=${a.name + (a.where ? ', in ' + a.where : '')} data-tip-side="bottom">${initials(a.name)}</span>`)}${avatars.length > 3 ? html`<span class="av more">+${avatars.length - 3}</span>` : null}</div>` : null}
       </div>
       ${menu ? html`<${ScenarioMenu} sid=${sid} scenarioList=${scenarioList} onSwitch=${switchScenario} onCreate=${createScenario} onRename=${renameScenario} onDelete=${deleteScenario} onCompare=${() => setPanel('compare')} onClose=${() => setMenu(false)} />` : null}
     </div>
-    <div class="pill actions-pill">
-      <button class="top-btn undo-top" disabled=${!pk.undo} title=${pk.undo ? 'Undo: ' + pk.undo.label + ' (Ctrl or Cmd+Z)' : 'Nothing to undo'} aria-label="Undo" onClick=${hist.undo}><${Icon} n="undo" /></button>
-      <button class="top-btn undo-top" disabled=${!pk.redo} title=${pk.redo ? 'Redo: ' + pk.redo.label : 'Nothing to redo'} aria-label="Redo" onClick=${hist.redo}><${Icon} n="redo" /></button>
-      <button class=${cls('top-btn', panel === 'history' && 'on')} aria-label="History" onClick=${() => togglePanel('history')}><${Icon} n="clock" /><span class="lbl">History</span></button>
-      <button class=${cls('top-btn', panel === 'checks' && 'on')} aria-label=${'Checks, ' + (problems ? plural(problems, 'problem') : 'no problems')} onClick=${() => togglePanel('checks')}>
-        <${Icon} n="shield" /><span class="lbl">Checks</span>
-        <span class=${cls('count', problems ? 'lv-' + worst : checks.list.length ? 'lv-tip' : 'ok')}>${problems || (checks.list.length ? checks.list.length : '✓')}</span></button>
-      <button class=${cls('top-btn', panel === 'templates' && 'on')} onClick=${() => togglePanel('templates')} aria-label="Templates"><${Icon} n="grid" /><span class="lbl">Templates</span></button>
-      <button class=${cls('top-btn', panel === 'settings' && 'on')} onClick=${() => togglePanel('settings')} aria-label="Settings"><${Icon} n="sliders" /><span class="lbl">Settings</span></button>
-    </div>
     <span class="spacer"></span>
+    <div class="pill actions-pill">
+      <button class="top-btn undo-top" disabled=${!pk.undo} data-tip=${pk.undo ? 'Undo: ' + pk.undo.label : 'Nothing to undo'} data-tip-side="bottom" aria-label="Undo" onClick=${hist.undo}><${Icon} n="undo" /></button>
+      <button class="top-btn undo-top" disabled=${!pk.redo} data-tip=${pk.redo ? 'Redo: ' + pk.redo.label : 'Nothing to redo'} data-tip-side="bottom" aria-label="Redo" onClick=${hist.redo}><${Icon} n="redo" /></button>
+      <button class=${cls('top-btn', panel === 'history' && 'on')} aria-label="History" data-tip="History" data-tip-side="bottom" onClick=${() => togglePanel('history')}><${Icon} n="clock" /></button>
+      <button class=${cls('top-btn', panel === 'checks' && 'on')} aria-label=${'Checks, ' + (problems ? plural(problems, 'problem') : 'no problems')} data-tip="Checks" data-tip-side="bottom" onClick=${() => togglePanel('checks')}>
+        <${Icon} n="shield" /><span class=${cls('count', problems ? 'lv-' + worst : checks.list.length ? 'lv-tip' : 'ok')}>${problems || (checks.list.length ? checks.list.length : '✓')}</span></button>
+    </div>
     <div class="summary" aria-label="Monthly summary">
       <div class="sum-item"><span class="eyebrow">Coming in</span><span class="sum-fig pos">${signed(flows.coming)}</span></div>
       <div class="sum-item"><span class="eyebrow">Going out</span><span class="sum-fig neg">${signed(flows.going)}</span></div>
@@ -2950,15 +3667,23 @@ function App() {
     </div>
   </div>
 
-  <nav class="rail" aria-label="Canvas tools">
-    <button class=${cls('tool', tool === 'select' && 'on')} data-tip="Select (V)" aria-label="Select" aria-pressed=${tool === 'select'} onClick=${() => setTool('select')}><${Icon} n="cursor" /></button>
-    <button class=${cls('tool', tool === 'hand' && 'on')} data-tip="Pan (H or hold Space)" aria-label="Pan" aria-pressed=${tool === 'hand'} onClick=${() => setTool('hand')}><${Icon} n="hand" /></button>
+  <nav class=${cls('rail', prefs.railOpen && 'open')} aria-label="Tools and menu">
+    <button class="tool rail-toggle" aria-expanded=${!!prefs.railOpen} aria-label=${prefs.railOpen ? 'Hide labels' : 'Show labels'} data-tip=${prefs.railOpen ? undefined : 'Show labels'} data-tip-side="right" onClick=${() => setPrefs({ railOpen: !prefs.railOpen })}><${Icon} n=${prefs.railOpen ? 'panelClose' : 'panelOpen'} /><span class="lbl">Hide labels</span></button>
     <div class="rail-sep"></div>
-    ${PALETTE.map((k) => html`<button key=${k} class="tool" data-tip=${'Add ' + KINDS[k].label.toLowerCase() + ' (drag or click)'} aria-label=${'Add ' + KINDS[k].label} onPointerDown=${(e) => paletteDown(k, e)} onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); addCardCenter(k); } }}><span class=${'pal pal-' + k}><${Icon} n=${k} s=${18} /></span></button>`)}
+    <span class="rail-h">Tools</span>
+    <button class=${cls('tool', tool === 'select' && 'on')} data-tip=${prefs.railOpen ? undefined : 'Select (V)'} data-tip-side="right" aria-label="Select" aria-pressed=${tool === 'select'} onClick=${() => setTool('select')}><${Icon} n="cursor" /><span class="lbl">Select</span><kbd class="lbl">V</kbd></button>
+    <button class=${cls('tool', tool === 'hand' && 'on')} data-tip=${prefs.railOpen ? undefined : 'Pan (H or hold Space)'} data-tip-side="right" aria-label="Pan" aria-pressed=${tool === 'hand'} onClick=${() => setTool('hand')}><${Icon} n="hand" /><span class="lbl">Pan</span><kbd class="lbl">H</kbd></button>
     <div class="rail-sep"></div>
-    <button class="tool" data-tip="Import a bank statement" aria-label="Import a bank statement" onClick=${() => setPanel('import')}><${Icon} n="importIcon" /></button>
-    <button class="tool" data-tip="Arrange cards by flow" aria-label="Arrange cards by flow" onClick=${arrange}><${Icon} n="arrange" /></button>
-    ${assets ? html`<button class="tool upload" data-tip="Upload files" aria-label="Upload files" onClick=${() => fileRef.current.click()}><${Icon} n="upload" /></button>` : null}
+    <span class="rail-h">Add a card</span>
+    ${PALETTE.map((k) => html`<button key=${k} class="tool" data-tip=${prefs.railOpen ? undefined : 'Add ' + KINDS[k].label.toLowerCase() + ' (drag or click)'} data-tip-side="right" aria-label=${'Add ' + KINDS[k].label} onPointerDown=${(e) => paletteDown(k, e)} onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); addCardCenter(k); } }}><span class=${'pal pal-' + k}><${Icon} n=${k} s=${18} /></span><span class="lbl">${KINDS[k].label}</span></button>`)}
+    <div class="rail-sep"></div>
+    <span class="rail-h">Board</span>
+    <button class=${cls('tool', panel === 'templates' && 'on')} data-tip=${prefs.railOpen ? undefined : 'Templates'} data-tip-side="right" aria-label="Templates" onClick=${() => togglePanel('templates')}><${Icon} n="grid" /><span class="lbl">Templates</span></button>
+    <button class=${cls('tool', panel === 'import' && 'on')} data-tip=${prefs.railOpen ? undefined : 'Import a bank statement'} data-tip-side="right" aria-label="Import a bank statement" onClick=${() => togglePanel('import')}><${Icon} n="importIcon" /><span class="lbl">Import a statement</span></button>
+    <button class="tool" data-tip=${prefs.railOpen ? undefined : 'Arrange cards by flow'} data-tip-side="right" aria-label="Arrange cards by flow" onClick=${arrange}><${Icon} n="arrange" /><span class="lbl">Arrange by flow</span></button>
+    ${assets ? html`<button class="tool upload" data-tip=${prefs.railOpen ? undefined : 'Upload files'} data-tip-side="right" aria-label="Upload files" onClick=${() => fileRef.current.click()}><${Icon} n="upload" /><span class="lbl">Upload files</span></button>` : null}
+    <div class="rail-sep"></div>
+    <button class=${cls('tool', panel === 'settings' && 'on')} data-tip=${prefs.railOpen ? undefined : 'Settings'} data-tip-side="right" aria-label="Settings" onClick=${() => togglePanel('settings')}><${Icon} n="sliders" /><span class="lbl">Settings</span></button>
   </nav>
 
   <div class="zoombar">
@@ -3006,7 +3731,12 @@ function App() {
   ${dropOver ? html`<div class="dropzone"><${Icon} n="upload" s=${32} />${assets ? 'Drop to place on the board' : 'File upload isn’t available here'}</div>` : null}
   ${ghost ? html`<div class="ghost" style=${{ left: ghost.x, top: ghost.y }}><span class=${'pal pal-' + ghost.kind}><${Icon} n=${ghost.kind} s=${16} /></span>${KINDS[ghost.kind].label}</div>` : null}
   <input ref=${fileRef} type="file" hidden multiple accept=".csv,.pdf,.png,.jpg,.jpeg,.gif,.webp,.txt,.md,.json" onChange=${(e) => { uploadFiles(e.target.files, centerWorld()); e.target.value = ''; }} />
+  </div>
+  ${page === 'home' ? html`<${Home} onOpen=${() => go('board')} onTemplates=${() => { go('board'); setPanel('templates'); }} onBoards=${() => setDrawer(true)} boardName=${meta.title} />` : null}
+  ${drawer ? html`<${BoardsDrawer} boards=${boards} bid=${bid} boardName=${meta.title} scenarioList=${scenarioList} sid=${sid} mode=${mode}
+      onOpenBoard=${switchBoard} onOpenPlan=${(id) => { go('board'); switchScenario(id); }} onCreate=${createBoard} onDelete=${deleteBoard} onClose=${() => setDrawer(false)} onNav=${onNav} />` : null}
   <${Toast} />
+  <${TipLayer} />
   <div class="sr" role="status" aria-live="polite">${announcement}</div>
   <//>`;
 }
