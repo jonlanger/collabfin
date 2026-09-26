@@ -1,0 +1,2396 @@
+{
+ "year": 2026,
+ "sources": {
+  "federal": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+  "socialSecurity": "https://www.ssa.gov/faqs/en/questions/KA-02387.html",
+  "stateIncome": "https://taxfoundation.org/data/all/state/state-income-tax-rates-2026/",
+  "sales": "https://taxfoundation.org/data/all/state/2026-sales-tax-rates-midyear/",
+  "property": "https://taxfoundation.org/data/all/state/property-taxes-by-state-county/"
+ },
+ "federal": {
+  "single": {
+   "std": 16100,
+   "brackets": [
+    [
+     0,
+     10
+    ],
+    [
+     12400,
+     12
+    ],
+    [
+     50400,
+     22
+    ],
+    [
+     105700,
+     24
+    ],
+    [
+     201775,
+     32
+    ],
+    [
+     256225,
+     35
+    ],
+    [
+     640600,
+     37
+    ]
+   ]
+  },
+  "married": {
+   "std": 32200,
+   "brackets": [
+    [
+     0,
+     10
+    ],
+    [
+     24800,
+     12
+    ],
+    [
+     100800,
+     22
+    ],
+    [
+     211400,
+     24
+    ],
+    [
+     403550,
+     32
+    ],
+    [
+     512450,
+     35
+    ],
+    [
+     768700,
+     37
+    ]
+   ]
+  },
+  "hoh": {
+   "std": 24150,
+   "brackets": [
+    [
+     0,
+     10
+    ],
+    [
+     18600,
+     12
+    ],
+    [
+     71200,
+     22
+    ],
+    [
+     90550,
+     24
+    ],
+    [
+     172750,
+     32
+    ],
+    [
+     218900,
+     35
+    ],
+    [
+     661050,
+     37
+    ]
+   ]
+  }
+ },
+ "fica": {
+  "socialSecurityRate": 6.2,
+  "socialSecurityWageBase": 184500,
+  "medicareRate": 1.45,
+  "additionalMedicareRate": 0.9,
+  "additionalMedicareThreshold": {
+   "single": 200000,
+   "married": 250000,
+   "hoh": 200000
+  }
+ },
+ "states": {
+  "AL": {
+   "name": "Alabama",
+   "salesRate": 9.46,
+   "propertyRate": 0.37,
+   "income": {
+    "single": [
+     [
+      0,
+      2.0
+     ],
+     [
+      500,
+      4.0
+     ],
+     [
+      3000,
+      5.0
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.0
+     ],
+     [
+      1000,
+      4.0
+     ],
+     [
+      6000,
+      5.0
+     ]
+    ],
+    "standardDeduction": [
+     3000,
+     8500
+    ],
+    "exemption": [
+     1500,
+     3000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "AK": {
+   "name": "Alaska",
+   "salesRate": 1.82,
+   "propertyRate": 0.94,
+   "income": null
+  },
+  "AZ": {
+   "name": "Arizona",
+   "salesRate": 8.54,
+   "propertyRate": 0.48,
+   "income": {
+    "single": [
+     [
+      0,
+      2.5
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.5
+     ]
+    ],
+    "standardDeduction": [
+     8350,
+     16700
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     100,
+     100
+    ]
+   }
+  },
+  "AR": {
+   "name": "Arkansas",
+   "salesRate": 9.48,
+   "propertyRate": 0.56,
+   "income": {
+    "single": [
+     [
+      0,
+      2.0
+     ],
+     [
+      4600,
+      3.9
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.0
+     ],
+     [
+      4600,
+      3.9
+     ]
+    ],
+    "standardDeduction": [
+     2470,
+     4940
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     29,
+     58
+    ]
+   }
+  },
+  "CA": {
+   "name": "California",
+   "salesRate": 9.03,
+   "propertyRate": 0.7,
+   "income": {
+    "single": [
+     [
+      0,
+      1.0
+     ],
+     [
+      11079,
+      2.0
+     ],
+     [
+      26264,
+      4.0
+     ],
+     [
+      41452,
+      6.0
+     ],
+     [
+      57542,
+      8.0
+     ],
+     [
+      72724,
+      9.3
+     ],
+     [
+      371479,
+      10.3
+     ],
+     [
+      445771,
+      11.3
+     ],
+     [
+      742953,
+      12.3
+     ],
+     [
+      1000000,
+      13.3
+     ]
+    ],
+    "married": [
+     [
+      0,
+      1.0
+     ],
+     [
+      22158,
+      2.0
+     ],
+     [
+      52528,
+      4.0
+     ],
+     [
+      82904,
+      6.0
+     ],
+     [
+      115084,
+      8.0
+     ],
+     [
+      145448,
+      9.3
+     ],
+     [
+      742958,
+      10.3
+     ],
+     [
+      891542,
+      11.3
+     ],
+     [
+      1000000,
+      12.3
+     ],
+     [
+      1485906,
+      13.3
+     ]
+    ],
+    "standardDeduction": [
+     5540,
+     11080
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     153,
+     306
+    ]
+   }
+  },
+  "CO": {
+   "name": "Colorado",
+   "salesRate": 7.89,
+   "propertyRate": 0.5,
+   "income": {
+    "single": [
+     [
+      0,
+      4.4
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.4
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "CT": {
+   "name": "Connecticut",
+   "salesRate": 6.35,
+   "propertyRate": 1.54,
+   "income": {
+    "single": [
+     [
+      0,
+      2.0
+     ],
+     [
+      10000,
+      4.5
+     ],
+     [
+      50000,
+      5.5
+     ],
+     [
+      100000,
+      6.0
+     ],
+     [
+      200000,
+      6.5
+     ],
+     [
+      250000,
+      6.9
+     ],
+     [
+      500000,
+      6.99
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.0
+     ],
+     [
+      20000,
+      4.5
+     ],
+     [
+      100000,
+      5.5
+     ],
+     [
+      200000,
+      6.0
+     ],
+     [
+      400000,
+      6.5
+     ],
+     [
+      500000,
+      6.9
+     ],
+     [
+      1000000,
+      6.99
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     15000,
+     24000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "DE": {
+   "name": "Delaware",
+   "salesRate": 0.0,
+   "propertyRate": 0.54,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      2000,
+      2.2
+     ],
+     [
+      5000,
+      3.9
+     ],
+     [
+      10000,
+      4.8
+     ],
+     [
+      20000,
+      5.2
+     ],
+     [
+      25000,
+      5.55
+     ],
+     [
+      60000,
+      6.6
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      2000,
+      2.2
+     ],
+     [
+      5000,
+      3.9
+     ],
+     [
+      10000,
+      4.8
+     ],
+     [
+      20000,
+      5.2
+     ],
+     [
+      25000,
+      5.55
+     ],
+     [
+      60000,
+      6.6
+     ]
+    ],
+    "standardDeduction": [
+     3250,
+     6500
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     110,
+     220
+    ]
+   }
+  },
+  "FL": {
+   "name": "Florida",
+   "salesRate": 6.98,
+   "propertyRate": 0.78,
+   "income": null
+  },
+  "GA": {
+   "name": "Georgia",
+   "salesRate": 7.56,
+   "propertyRate": 0.79,
+   "income": {
+    "single": [
+     [
+      0,
+      5.19
+     ]
+    ],
+    "married": [
+     [
+      0,
+      5.19
+     ]
+    ],
+    "standardDeduction": [
+     12000,
+     24000
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "HI": {
+   "name": "Hawaii",
+   "salesRate": 4.5,
+   "propertyRate": 0.29,
+   "income": {
+    "single": [
+     [
+      0,
+      1.4
+     ],
+     [
+      9600,
+      3.2
+     ],
+     [
+      14400,
+      5.5
+     ],
+     [
+      19200,
+      6.4
+     ],
+     [
+      24000,
+      6.8
+     ],
+     [
+      36000,
+      7.2
+     ],
+     [
+      48000,
+      7.6
+     ],
+     [
+      125000,
+      7.9
+     ],
+     [
+      175000,
+      8.25
+     ],
+     [
+      225000,
+      9.0
+     ],
+     [
+      275000,
+      10.0
+     ],
+     [
+      325000,
+      11.0
+     ]
+    ],
+    "married": [
+     [
+      0,
+      1.4
+     ],
+     [
+      19200,
+      3.2
+     ],
+     [
+      28800,
+      5.5
+     ],
+     [
+      38400,
+      6.4
+     ],
+     [
+      48000,
+      6.8
+     ],
+     [
+      72000,
+      7.2
+     ],
+     [
+      96000,
+      7.6
+     ],
+     [
+      250000,
+      7.9
+     ],
+     [
+      350000,
+      8.25
+     ],
+     [
+      450000,
+      9.0
+     ],
+     [
+      550000,
+      10.0
+     ],
+     [
+      650000,
+      11.0
+     ]
+    ],
+    "standardDeduction": [
+     4400,
+     8800
+    ],
+    "exemption": [
+     1144,
+     2288
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "ID": {
+   "name": "Idaho",
+   "salesRate": 6.03,
+   "propertyRate": 0.5,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      4811,
+      5.3
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      9622,
+      5.3
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "IL": {
+   "name": "Illinois",
+   "salesRate": 8.98,
+   "propertyRate": 1.88,
+   "income": {
+    "single": [
+     [
+      0,
+      4.95
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.95
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     2925,
+     5850
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "IN": {
+   "name": "Indiana",
+   "salesRate": 7.0,
+   "propertyRate": 0.76,
+   "income": {
+    "single": [
+     [
+      0,
+      2.95
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.95
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     1000,
+     2000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "IA": {
+   "name": "Iowa",
+   "salesRate": 6.94,
+   "propertyRate": 1.33,
+   "income": {
+    "single": [
+     [
+      0,
+      3.8
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.8
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     40,
+     80
+    ]
+   }
+  },
+  "KS": {
+   "name": "Kansas",
+   "salesRate": 8.71,
+   "propertyRate": 1.21,
+   "income": {
+    "single": [
+     [
+      0,
+      5.2
+     ],
+     [
+      23000,
+      5.58
+     ]
+    ],
+    "married": [
+     [
+      0,
+      5.2
+     ],
+     [
+      46000,
+      5.58
+     ]
+    ],
+    "standardDeduction": [
+     3605,
+     8240
+    ],
+    "exemption": [
+     9160,
+     18320
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "KY": {
+   "name": "Kentucky",
+   "salesRate": 6.0,
+   "propertyRate": 0.74,
+   "income": {
+    "single": [
+     [
+      0,
+      3.5
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.5
+     ]
+    ],
+    "standardDeduction": [
+     3360,
+     3360
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "LA": {
+   "name": "Louisiana",
+   "salesRate": 10.13,
+   "propertyRate": 0.55,
+   "income": {
+    "single": [
+     [
+      0,
+      3.0
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.0
+     ]
+    ],
+    "standardDeduction": [
+     12875,
+     25750
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "ME": {
+   "name": "Maine",
+   "salesRate": 5.5,
+   "propertyRate": 0.98,
+   "income": {
+    "single": [
+     [
+      0,
+      5.8
+     ],
+     [
+      27399,
+      6.75
+     ],
+     [
+      64849,
+      7.15
+     ]
+    ],
+    "married": [
+     [
+      0,
+      5.8
+     ],
+     [
+      54849,
+      6.75
+     ],
+     [
+      129749,
+      7.15
+     ]
+    ],
+    "standardDeduction": [
+     8350,
+     16700
+    ],
+    "exemption": [
+     5300,
+     10600
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MD": {
+   "name": "Maryland",
+   "salesRate": 6.0,
+   "propertyRate": 0.92,
+   "income": {
+    "single": [
+     [
+      0,
+      2.0
+     ],
+     [
+      1000,
+      3.0
+     ],
+     [
+      2000,
+      4.0
+     ],
+     [
+      3000,
+      4.75
+     ],
+     [
+      100000,
+      5.0
+     ],
+     [
+      125000,
+      5.25
+     ],
+     [
+      150000,
+      5.5
+     ],
+     [
+      250000,
+      5.75
+     ],
+     [
+      500000,
+      6.25
+     ],
+     [
+      1000000,
+      6.5
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.0
+     ],
+     [
+      1000,
+      3.0
+     ],
+     [
+      2000,
+      4.0
+     ],
+     [
+      3000,
+      4.75
+     ],
+     [
+      150000,
+      5.0
+     ],
+     [
+      175000,
+      5.25
+     ],
+     [
+      225000,
+      5.5
+     ],
+     [
+      300000,
+      5.75
+     ],
+     [
+      600000,
+      6.25
+     ],
+     [
+      1200000,
+      6.5
+     ]
+    ],
+    "standardDeduction": [
+     3350,
+     6700
+    ],
+    "exemption": [
+     3200,
+     6400
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MA": {
+   "name": "Massachusetts",
+   "salesRate": 6.25,
+   "propertyRate": 1.0,
+   "income": {
+    "single": [
+     [
+      0,
+      5.0
+     ],
+     [
+      1083150,
+      9.0
+     ]
+    ],
+    "married": [
+     [
+      0,
+      5.0
+     ],
+     [
+      1083150,
+      9.0
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     4400,
+     8800
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MI": {
+   "name": "Michigan",
+   "salesRate": 6.0,
+   "propertyRate": 1.19,
+   "income": {
+    "single": [
+     [
+      0,
+      4.25
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.25
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     5900,
+     11800
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MN": {
+   "name": "Minnesota",
+   "salesRate": 8.14,
+   "propertyRate": 1.0,
+   "income": {
+    "single": [
+     [
+      0,
+      5.35
+     ],
+     [
+      33310,
+      6.8
+     ],
+     [
+      109430,
+      7.85
+     ],
+     [
+      203150,
+      9.85
+     ]
+    ],
+    "married": [
+     [
+      0,
+      5.35
+     ],
+     [
+      48700,
+      6.8
+     ],
+     [
+      193480,
+      7.85
+     ],
+     [
+      337930,
+      9.85
+     ]
+    ],
+    "standardDeduction": [
+     15300,
+     30600
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MS": {
+   "name": "Mississippi",
+   "salesRate": 7.06,
+   "propertyRate": 0.58,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      10000,
+      4.0
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      10000,
+      4.0
+     ]
+    ],
+    "standardDeduction": [
+     2300,
+     4600
+    ],
+    "exemption": [
+     6000,
+     12000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MO": {
+   "name": "Missouri",
+   "salesRate": 8.44,
+   "propertyRate": 0.89,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      1348,
+      2.0
+     ],
+     [
+      2696,
+      2.5
+     ],
+     [
+      4044,
+      3.0
+     ],
+     [
+      5392,
+      3.5
+     ],
+     [
+      6740,
+      4.0
+     ],
+     [
+      8088,
+      4.5
+     ],
+     [
+      9436,
+      4.7
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      1348,
+      2.0
+     ],
+     [
+      2696,
+      2.5
+     ],
+     [
+      4044,
+      3.0
+     ],
+     [
+      5392,
+      3.5
+     ],
+     [
+      6740,
+      4.0
+     ],
+     [
+      8088,
+      4.5
+     ],
+     [
+      9436,
+      4.7
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "MT": {
+   "name": "Montana",
+   "salesRate": 0.0,
+   "propertyRate": 0.61,
+   "income": {
+    "single": [
+     [
+      0,
+      4.7
+     ],
+     [
+      47500,
+      5.65
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.7
+     ],
+     [
+      95000,
+      5.65
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "NE": {
+   "name": "Nebraska",
+   "salesRate": 6.98,
+   "propertyRate": 1.44,
+   "income": {
+    "single": [
+     [
+      0,
+      2.46
+     ],
+     [
+      4130,
+      3.51
+     ],
+     [
+      24760,
+      4.55
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.46
+     ],
+     [
+      8250,
+      3.51
+     ],
+     [
+      49530,
+      4.55
+     ]
+    ],
+    "standardDeduction": [
+     8850,
+     17700
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     176,
+     352
+    ]
+   }
+  },
+  "NV": {
+   "name": "Nevada",
+   "salesRate": 8.24,
+   "propertyRate": 0.5,
+   "income": null
+  },
+  "NH": {
+   "name": "New Hampshire",
+   "salesRate": 0.0,
+   "propertyRate": 1.5,
+   "income": null
+  },
+  "NJ": {
+   "name": "New Jersey",
+   "salesRate": 6.6,
+   "propertyRate": 1.88,
+   "income": {
+    "single": [
+     [
+      0,
+      1.4
+     ],
+     [
+      20000,
+      1.75
+     ],
+     [
+      35000,
+      3.5
+     ],
+     [
+      40000,
+      5.53
+     ],
+     [
+      75000,
+      6.37
+     ],
+     [
+      500000,
+      8.97
+     ],
+     [
+      1000000,
+      10.75
+     ]
+    ],
+    "married": [
+     [
+      0,
+      1.4
+     ],
+     [
+      20000,
+      1.75
+     ],
+     [
+      50000,
+      2.45
+     ],
+     [
+      70000,
+      3.5
+     ],
+     [
+      80000,
+      5.53
+     ],
+     [
+      150000,
+      6.37
+     ],
+     [
+      500000,
+      8.97
+     ],
+     [
+      1000000,
+      10.75
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     1000,
+     2000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "NM": {
+   "name": "New Mexico",
+   "salesRate": 7.68,
+   "propertyRate": 0.63,
+   "income": {
+    "single": [
+     [
+      0,
+      1.5
+     ],
+     [
+      5500,
+      3.2
+     ],
+     [
+      16500,
+      4.3
+     ],
+     [
+      33500,
+      4.7
+     ],
+     [
+      66500,
+      4.9
+     ],
+     [
+      210000,
+      5.9
+     ]
+    ],
+    "married": [
+     [
+      0,
+      1.5
+     ],
+     [
+      8000,
+      3.2
+     ],
+     [
+      25000,
+      4.3
+     ],
+     [
+      50000,
+      4.7
+     ],
+     [
+      100000,
+      4.9
+     ],
+     [
+      315000,
+      5.9
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "NY": {
+   "name": "New York",
+   "salesRate": 8.54,
+   "propertyRate": 1.3,
+   "income": {
+    "single": [
+     [
+      0,
+      3.9
+     ],
+     [
+      8500,
+      4.4
+     ],
+     [
+      11700,
+      5.15
+     ],
+     [
+      13900,
+      5.4
+     ],
+     [
+      80650,
+      5.9
+     ],
+     [
+      215400,
+      6.85
+     ],
+     [
+      1077550,
+      9.65
+     ],
+     [
+      5000000,
+      10.3
+     ],
+     [
+      25000000,
+      10.9
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.9
+     ],
+     [
+      17150,
+      4.4
+     ],
+     [
+      23600,
+      5.15
+     ],
+     [
+      27900,
+      5.4
+     ],
+     [
+      161550,
+      5.9
+     ],
+     [
+      323200,
+      6.85
+     ],
+     [
+      2155350,
+      9.65
+     ],
+     [
+      5000000,
+      10.3
+     ],
+     [
+      25000000,
+      10.9
+     ]
+    ],
+    "standardDeduction": [
+     8000,
+     16050
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "NC": {
+   "name": "North Carolina",
+   "salesRate": 7.1,
+   "propertyRate": 0.66,
+   "income": {
+    "single": [
+     [
+      0,
+      3.99
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.99
+     ]
+    ],
+    "standardDeduction": [
+     12750,
+     25500
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "ND": {
+   "name": "North Dakota",
+   "salesRate": 7.09,
+   "propertyRate": 0.92,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      48475,
+      1.95
+     ],
+     [
+      244825,
+      2.5
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      80975,
+      1.95
+     ],
+     [
+      298075,
+      2.5
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "OH": {
+   "name": "Ohio",
+   "salesRate": 7.29,
+   "propertyRate": 1.36,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      26050,
+      2.75
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      26050,
+      2.75
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     2400,
+     4800
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "OK": {
+   "name": "Oklahoma",
+   "salesRate": 9.06,
+   "propertyRate": 0.79,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      3750,
+      2.5
+     ],
+     [
+      4900,
+      3.5
+     ],
+     [
+      7200,
+      4.5
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      7500,
+      2.5
+     ],
+     [
+      9800,
+      3.5
+     ],
+     [
+      14400,
+      4.5
+     ]
+    ],
+    "standardDeduction": [
+     6350,
+     12700
+    ],
+    "exemption": [
+     1000,
+     2000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "OR": {
+   "name": "Oregon",
+   "salesRate": 0.0,
+   "propertyRate": 0.81,
+   "income": {
+    "single": [
+     [
+      0,
+      4.75
+     ],
+     [
+      4550,
+      6.75
+     ],
+     [
+      11400,
+      8.75
+     ],
+     [
+      125000,
+      9.9
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.75
+     ],
+     [
+      9100,
+      6.75
+     ],
+     [
+      22800,
+      8.75
+     ],
+     [
+      250000,
+      9.9
+     ]
+    ],
+    "standardDeduction": [
+     2910,
+     5820
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     256,
+     512
+    ]
+   }
+  },
+  "PA": {
+   "name": "Pennsylvania",
+   "salesRate": 6.34,
+   "propertyRate": 1.26,
+   "income": {
+    "single": [
+     [
+      0,
+      3.07
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.07
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "RI": {
+   "name": "Rhode Island",
+   "salesRate": 7.0,
+   "propertyRate": 1.12,
+   "income": {
+    "single": [
+     [
+      0,
+      3.75
+     ],
+     [
+      82050,
+      4.75
+     ],
+     [
+      186450,
+      5.99
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.75
+     ],
+     [
+      82050,
+      4.75
+     ],
+     [
+      186450,
+      5.99
+     ]
+    ],
+    "standardDeduction": [
+     11200,
+     22400
+    ],
+    "exemption": [
+     5250,
+     10500
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "SC": {
+   "name": "South Carolina",
+   "salesRate": 7.49,
+   "propertyRate": 0.49,
+   "income": {
+    "single": [
+     [
+      0,
+      0.0
+     ],
+     [
+      3640,
+      3.0
+     ],
+     [
+      18230,
+      6.0
+     ]
+    ],
+    "married": [
+     [
+      0,
+      0.0
+     ],
+     [
+      3640,
+      3.0
+     ],
+     [
+      18230,
+      6.0
+     ]
+    ],
+    "standardDeduction": [
+     8350,
+     16700
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "SD": {
+   "name": "South Dakota",
+   "salesRate": 6.11,
+   "propertyRate": 1.0,
+   "income": null
+  },
+  "TN": {
+   "name": "Tennessee",
+   "salesRate": 9.61,
+   "propertyRate": 0.52,
+   "income": null
+  },
+  "TX": {
+   "name": "Texas",
+   "salesRate": 8.2,
+   "propertyRate": 1.4,
+   "income": null
+  },
+  "UT": {
+   "name": "Utah",
+   "salesRate": 7.42,
+   "propertyRate": 0.48,
+   "income": {
+    "single": [
+     [
+      0,
+      4.5
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.5
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     966,
+     1932
+    ]
+   }
+  },
+  "VT": {
+   "name": "Vermont",
+   "salesRate": 6.43,
+   "propertyRate": 1.51,
+   "income": {
+    "single": [
+     [
+      0,
+      3.35
+     ],
+     [
+      49400,
+      6.6
+     ],
+     [
+      119700,
+      7.6
+     ],
+     [
+      249700,
+      8.75
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.35
+     ],
+     [
+      82500,
+      6.6
+     ],
+     [
+      199450,
+      7.6
+     ],
+     [
+      304000,
+      8.75
+     ]
+    ],
+    "standardDeduction": [
+     7650,
+     15300
+    ],
+    "exemption": [
+     5300,
+     10600
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "VA": {
+   "name": "Virginia",
+   "salesRate": 5.77,
+   "propertyRate": 0.78,
+   "income": {
+    "single": [
+     [
+      0,
+      2.0
+     ],
+     [
+      3000,
+      3.0
+     ],
+     [
+      5000,
+      5.0
+     ],
+     [
+      17000,
+      5.75
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.0
+     ],
+     [
+      3000,
+      3.0
+     ],
+     [
+      5000,
+      5.0
+     ],
+     [
+      17000,
+      5.75
+     ]
+    ],
+    "standardDeduction": [
+     8750,
+     17500
+    ],
+    "exemption": [
+     930,
+     1860
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "WA": {
+   "name": "Washington",
+   "salesRate": 9.57,
+   "propertyRate": 0.75,
+   "income": null
+  },
+  "WV": {
+   "name": "West Virginia",
+   "salesRate": 6.6,
+   "propertyRate": 0.51,
+   "income": {
+    "single": [
+     [
+      0,
+      2.22
+     ],
+     [
+      10000,
+      2.96
+     ],
+     [
+      25000,
+      3.33
+     ],
+     [
+      40000,
+      4.44
+     ],
+     [
+      60000,
+      4.82
+     ]
+    ],
+    "married": [
+     [
+      0,
+      2.22
+     ],
+     [
+      10000,
+      2.96
+     ],
+     [
+      25000,
+      3.33
+     ],
+     [
+      40000,
+      4.44
+     ],
+     [
+      60000,
+      4.82
+     ]
+    ],
+    "standardDeduction": [
+     0,
+     0
+    ],
+    "exemption": [
+     2000,
+     4000
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "WI": {
+   "name": "Wisconsin",
+   "salesRate": 5.72,
+   "propertyRate": 1.32,
+   "income": {
+    "single": [
+     [
+      0,
+      3.5
+     ],
+     [
+      15110,
+      4.4
+     ],
+     [
+      51950,
+      5.3
+     ],
+     [
+      332720,
+      7.65
+     ]
+    ],
+    "married": [
+     [
+      0,
+      3.5
+     ],
+     [
+      20150,
+      4.4
+     ],
+     [
+      69260,
+      5.3
+     ],
+     [
+      443630,
+      7.65
+     ]
+    ],
+    "standardDeduction": [
+     13960,
+     25840
+    ],
+    "exemption": [
+     700,
+     1400
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  },
+  "WY": {
+   "name": "Wyoming",
+   "salesRate": 5.39,
+   "propertyRate": 0.53,
+   "income": null
+  },
+  "DC": {
+   "name": "District of Columbia",
+   "salesRate": 6.0,
+   "propertyRate": 0.56,
+   "income": {
+    "single": [
+     [
+      0,
+      4.0
+     ],
+     [
+      10000,
+      6.0
+     ],
+     [
+      40000,
+      6.5
+     ],
+     [
+      60000,
+      8.5
+     ],
+     [
+      250000,
+      9.25
+     ],
+     [
+      500000,
+      9.75
+     ],
+     [
+      1000000,
+      10.75
+     ]
+    ],
+    "married": [
+     [
+      0,
+      4.0
+     ],
+     [
+      10000,
+      6.0
+     ],
+     [
+      40000,
+      6.5
+     ],
+     [
+      60000,
+      8.5
+     ],
+     [
+      250000,
+      9.25
+     ],
+     [
+      500000,
+      9.75
+     ],
+     [
+      1000000,
+      10.75
+     ]
+    ],
+    "standardDeduction": [
+     16100,
+     32200
+    ],
+    "exemption": [
+     0,
+     0
+    ],
+    "credit": [
+     0,
+     0
+    ]
+   }
+  }
+ }
+}

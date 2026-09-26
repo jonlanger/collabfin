@@ -1,0 +1,56 @@
+/* Collabfin design tokens: light, dark and collaborator colours. */
+:root {
+  --surface: #f6f8fc; --surface-raised: #ffffff; --surface-sunken: #eceff7; --canvas: #eef1f8; --grid-dot: #c5cce0;
+  --line: #d9deea; --line-strong: #7d88a6;
+  --ink: #0b1430; --ink-muted: #4a5573; --ink-subtle: #636d8a;
+  --brand: #1a4fe6; --brand-hover: #1440c4; --on-brand: #ffffff; --brand-ink: #1a4fe6; --brand-soft: #e6edff;
+  --accent: #f5b83d; --on-accent: #0b1430; --accent-soft: #fdf3dc; --accent-line: #f0d9a6; --accent-ink: #8a5a00;
+  --gain: #0a7a5a; --gain-soft: #e3f6ee; --loss: #c62f27; --loss-soft: #fde8e6;
+  --scrim: #0b143059;
+  --shadow-sm: 0 1px 2px #0b14300f, 0 1px 3px #0b143014;
+  --shadow-md: 0 2px 4px #0b14300d, 0 10px 24px -6px #0b143026;
+  --shadow-lg: 0 8px 16px #0b143014, 0 24px 48px -8px #0b143033;
+  --shadow-cta: 0 6px 16px -4px #1a4fe673;
+  --focus-ring: 0 0 0 2px #f6f8fc, 0 0 0 4px #1a4fe6;
+  --font-display: var(--ff-display), var(--ff-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--ff-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--ff-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --r-sm: 10px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #0a0f1f; --surface-raised: #121a31; --surface-sunken: #060a16; --canvas: #070b17; --grid-dot: #26314f;
+    --line: #232d4a; --line-strong: #5d6a97;
+    --ink: #eef2ff; --ink-muted: #a9b3d1; --ink-subtle: #8b95b6;
+    --brand: #3563f5; --brand-hover: #2a55e0; --on-brand: #ffffff; --brand-ink: #8aa8ff; --brand-soft: #172a5c;
+    --accent: #f5c46a; --on-accent: #0a0f1f; --accent-soft: #2e2410; --accent-line: #4a3a17; --accent-ink: #f5c46a;
+    --gain: #3ddc97; --gain-soft: #0f2a22; --loss: #ff7a70; --loss-soft: #361615;
+    --scrim: #000000a6;
+    --shadow-sm: 0 1px 3px #000000b3;
+    --shadow-md: 0 2px 4px #00000066, 0 12px 28px -6px #000000cc;
+    --shadow-lg: 0 8px 16px #00000080, 0 24px 48px -8px #000000e6;
+    --shadow-cta: 0 6px 20px -4px #3563f599;
+    --focus-ring: 0 0 0 2px #0a0f1f, 0 0 0 4px #8aa8ff;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #0a0f1f; --surface-raised: #121a31; --surface-sunken: #060a16; --canvas: #070b17; --grid-dot: #26314f;
+  --line: #232d4a; --line-strong: #5d6a97;
+  --ink: #eef2ff; --ink-muted: #a9b3d1; --ink-subtle: #8b95b6;
+  --brand: #3563f5; --brand-hover: #2a55e0; --on-brand: #ffffff; --brand-ink: #8aa8ff; --brand-soft: #172a5c;
+  --accent: #f5c46a; --on-accent: #0a0f1f; --accent-soft: #2e2410; --accent-line: #4a3a17; --accent-ink: #f5c46a;
+  --gain: #3ddc97; --gain-soft: #0f2a22; --loss: #ff7a70; --loss-soft: #361615;
+  --scrim: #000000a6;
+  --shadow-sm: 0 1px 3px #000000b3;
+  --shadow-md: 0 2px 4px #00000066, 0 12px 28px -6px #000000cc;
+  --shadow-lg: 0 8px 16px #00000080, 0 24px 48px -8px #000000e6;
+  --shadow-cta: 0 6px 20px -4px #3563f599;
+  --focus-ring: 0 0 0 2px #0a0f1f, 0 0 0 4px #8aa8ff;
+}
+
+/* collaborator colours (from the design system tokens) */
+:root { --presence-1: #1a4fe6; --presence-2: #a84f1c; --presence-3: #c2338f; --presence-4: #0b7a7a; --on-presence: #ffffff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --presence-1: #8aa8ff; --presence-2: #f5c46a; --presence-3: #f07cc4; --presence-4: #3fd0d0; --on-presence: #0a0f1f; } }
+:root[data-theme="dark"] { --presence-1: #8aa8ff; --presence-2: #f5c46a; --presence-3: #f07cc4; --presence-4: #3fd0d0; --on-presence: #0a0f1f; }
