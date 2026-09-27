@@ -1107,11 +1107,14 @@ export function BoardApp({ boardId, initialPlanId, start }: { boardId: string; i
               </button>
               <span className="divider" />
               <TextInput className="board-title" required label="Board name" value={title} disabled={!canEdit} onCommit={(v) => ops.renameBoard(v)} />
-              <button className="scen-btn" aria-haspopup="menu" aria-expanded={menu} onClick={() => setMenu(!menu)} data-tip="Plans in this board" data-tip-side="bottom">
-                <Icon n="layers" s={16} />
-                <span>{planName}</span>
-                <Icon n="chevron" s={16} />
-              </button>
+              <div className="scen-wrap">
+                <button className="scen-btn" aria-haspopup="menu" aria-expanded={menu} aria-label={`Plan: ${planName}`} onClick={() => setMenu(!menu)} data-tip="Plans in this board" data-tip-side="bottom">
+                  <Icon n="layers" s={16} />
+                  <span>{planName}</span>
+                  <Icon n="chevron" s={16} />
+                </button>
+                {menu && planId ? <PlanMenu planId={planId} plans={plans} canEdit={canEdit} onSwitch={switchPlan} onCreate={createPlan} onRename={renamePlan} onDelete={deletePlan} onCompare={() => setPanel("compare")} onClose={() => setMenu(false)} /> : null}
+              </div>
               <span className={`status${store.mode === "local" ? " local" : ""}`} tabIndex={0} data-tip={store.mode === "cloud" ? (canEdit ? "Live: everyone with access sees changes as they happen" : "Live, view only") : "Saved in this browser only"} data-tip-side="bottom">
                 <i />
                 <span className="sr">{store.mode === "cloud" ? "Live" : "Saved in this browser"}</span>
@@ -1127,7 +1130,6 @@ export function BoardApp({ boardId, initialPlanId, start }: { boardId: string; i
                 </div>
               ) : null}
             </div>
-            {menu && planId ? <PlanMenu planId={planId} plans={plans} canEdit={canEdit} onSwitch={switchPlan} onCreate={createPlan} onRename={renamePlan} onDelete={deletePlan} onCompare={() => setPanel("compare")} onClose={() => setMenu(false)} /> : null}
           </div>
           <span className="spacer" />
           <div className="pill actions-pill">

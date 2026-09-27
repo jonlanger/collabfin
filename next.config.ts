@@ -9,6 +9,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Lets a second `next dev` (e.g. the Claude preview) run beside another without hitting the dev lock.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   // Pin the project root so a stray lockfile higher up the disk isn't mistaken for it.
   turbopack: { root: __dirname },
   async headers() {

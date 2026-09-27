@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import { TAX_SOURCES } from "@/lib/engine";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { A11yIllo, ChecksIllo, CollabIllo, DebtIllo, FlowIllo, GrowthIllo, HeroCanvas, ImportIllo, ScenarioIllo, TaxIllo } from "./illustrations";
@@ -47,6 +47,17 @@ export function Home({ signedIn }: { signedIn: boolean }) {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
+  // The header CTA stays a quiet (ghost-style) button until the hero CTA has scrolled up under the sticky nav.
+  const heroCta = useRef<HTMLAnchorElement>(null);
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    const el = heroCta.current;
+    if (!el) return;
+    const nav = 68;
+    const io = new IntersectionObserver(([e]) => setPastHero(!e.isIntersecting && e.boundingClientRect.top < nav), { rootMargin: `-${nav}px 0px 0px 0px` });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const open = signedIn ? "Open your boards" : "Get started";
   return (
     <div className="home">
@@ -57,7 +68,7 @@ export function Home({ signedIn }: { signedIn: boolean }) {
             <a href="#how">How it works</a>
             <a href="#features">Features</a>
           </nav>
-          <Link className="cta sm" href="/boards">
+          <Link className={`cta sm${pastHero ? "" : " quiet"}`} href="/boards">
             {open}
             <Icon n="arrowRight" s={18} />
           </Link>
@@ -71,11 +82,11 @@ export function Home({ signedIn }: { signedIn: boolean }) {
             <h1>Plan your money together, on one canvas.</h1>
             <p>Put your paycheck, bills, accounts and goals on an endless board, link them together, and watch every total update, for everyone, as you go.</p>
             <div className="hero-ctas">
-              <Link className="cta lg" href="/boards">
+              <Link ref={heroCta} className="cta lg" href="/boards">
                 {open}
                 <Icon n="arrowRight" s={20} />
               </Link>
-              <Link className="btn2" href="/boards?new=1">
+              <Link className="btn2 lg" href="/boards?new=1">
                 Start from a template
               </Link>
             </div>
@@ -175,7 +186,7 @@ export function Home({ signedIn }: { signedIn: boolean }) {
                 {open}
                 <Icon n="arrowRight" s={20} />
               </Link>
-              <Link className="btn2 inv" href="/boards?new=1">
+              <Link className="btn2 lg inv" href="/boards?new=1">
                 Browse templates
               </Link>
             </div>

@@ -289,6 +289,7 @@ button { cursor: pointer; }
 .board-wrap { position: relative; display: flex; min-width: 0; }
 .scen-btn { display: inline-flex; align-items: center; gap: 4px; flex: none; max-width: 180px; height: 32px; padding: 0 6px 0 10px; border: 0; border-radius: 8px; background: var(--brand-soft); color: var(--brand-ink); font: 600 13px/16px var(--font-sans); white-space: nowrap; }
 .scen-btn span { overflow: hidden; text-overflow: ellipsis; }
+.scen-wrap { position: relative; display: flex; flex: none; min-width: 0; }
 .menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 45; width: 320px; max-width: calc(100vw - 24px); padding: 6px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-lg); }
 .menu-title { padding: 8px 10px 4px; }
 .menu-item { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 0 10px; border: 0; border-radius: 10px; background: transparent; color: var(--ink); font: 500 15px/20px var(--font-sans); text-align: left; }
@@ -361,6 +362,12 @@ button { cursor: pointer; }
 @media (max-width: 719px) {
   .undo-top { display: none; }
   .scen-btn { max-width: 120px; }
+  .board-title { width: auto; flex: 1 1 11ch; }
+}
+@media (max-width: 479px) {
+  /* icon-only plan button on phones, so the board name keeps its room; the menu names the current plan */
+  .scen-btn { gap: 2px; padding: 0 4px 0 8px; }
+  .scen-btn span { display: none; }
   .stats { grid-template-columns: 1fr 1fr; }
 }
 

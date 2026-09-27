@@ -12,7 +12,10 @@ html:has(.home) { scroll-behavior: smooth; }
 .home-links a:hover { background: var(--surface-sunken); color: var(--ink); }
 @media (min-width: 820px) { .home-links { display: flex; } }
 .nav-in .cta.sm { margin-left: auto; height: 44px; padding: 0 16px; font-size: 15px; border-radius: 14px; max-width: 60vw; overflow: hidden; text-overflow: ellipsis; }
-.cta.lg { height: 60px; padding: 0 28px; font-size: 18px; border-radius: 20px; }
+.nav-in .cta.sm { transition: background-color .2s ease, color .2s ease, box-shadow .2s ease; }
+.nav-in .cta.sm.quiet { background: transparent; color: var(--brand-ink); box-shadow: inset 0 0 0 1.5px var(--line-strong); }
+.nav-in .cta.sm.quiet:hover { background: var(--brand-soft); }
+.cta.lg, .btn2.lg { box-sizing: border-box; height: 60px; padding: 0 28px; font-size: 18px; border-radius: 20px; }
 .cta .ico { margin-left: 2px; }
 
 .home-hero { display: grid; gap: 40px; padding-block: 40px 72px; align-items: center; }

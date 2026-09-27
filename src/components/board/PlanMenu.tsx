@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState, type FormEvent } from "react";
+import { useEffect, useEffectEvent, useLayoutEffect, useRef, useState, type FormEvent } from "react";
 import { validateName } from "@/lib/engine";
 import type { PlanInfo } from "@/lib/data";
 import { Icon } from "@/components/ui/Icon";
@@ -27,6 +27,17 @@ export function PlanMenu({ planId, plans, canEdit, onSwitch, onCreate, onRename,
       window.removeEventListener("keydown", key);
     };
   }, []);
+  // Opens under the plan button; nudge sideways if that would run off either edge of a narrow screen.
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.translate = "";
+    const r = el.getBoundingClientRect();
+    const zoom = (el as HTMLElement & { currentCSSZoom?: number }).currentCSSZoom ?? 1;
+    const gap = 12;
+    const shift = r.right > window.innerWidth - gap ? window.innerWidth - gap - r.right : r.left < gap ? gap - r.left : 0;
+    if (shift) el.style.translate = `${Math.max(shift, gap - r.left) / zoom}px 0`;
+  }, [mode]);
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const why = validateName(name, { label: "plan", max: 40, existing: plans.filter((p) => mode !== "rename" || p.id !== planId).map((p) => p.name) });

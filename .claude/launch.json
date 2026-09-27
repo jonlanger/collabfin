@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "collabfin-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["NEXT_DIST_DIR=.next-preview", "npm", "run", "dev"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }
